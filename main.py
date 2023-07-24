@@ -5,11 +5,30 @@ import random as random
 import time as time
 from evdev import UInput, ecodes as e
 
-# Hardware
+# Custom variables
+
+# Hardware --------------------
 keyboard_event = "/dev/input/event0"
 # Account for the possibility of screen above or left of the game. This assumes a default 1080p for every screen.
 screen_offset_x = 1920
 screen_offset_y = 0
+
+# Keypress data ---------------
+# WRITE THESE AS SECONDS. They will get converted to milliseconds.
+
+# My shortest was 54, fastest was 141.
+# My std dev was 21.
+# My q3 was 110 but you can also use your q1, mean, and any other number you want really.
+shortest_key_press = 54
+longest_key_press = 141
+range_key_press = 5
+std_dev_key_press = 21
+third_value_key_press = 110
+
+# Other -----------------------
+image_save_location = "/home/lemon/Documents/GitHub/poepyautopot/images/"
+
+# -----------------------------
 
 def flask_init():
   # Template for flasks
@@ -33,6 +52,7 @@ def flask_init():
   flask4 = flask_body(enable=False, use=5, max=15, cur=max, img=None)
   flask5 = flask_body(enable=False, use=5, max=15, cur=max, img=None)
 
+def flask_capture():
   # Image with panel of flasks
   global flasks_panel
   flasks_panel = pag.screenshot(region=(310 + screen_offset_x, 990, 223, 80))
@@ -52,39 +72,76 @@ def mana_init():
   global mana_panel
   mana_panel = pag.screenshot(region=(1800 + screen_offset_x, 875, 2, 200))
 
-def init_test(saveloc):
-  flask_init()
-  flasks_panel.save(saveloc + "flasks_panel.jpg")
+def image_init_test(saveloc):
+  flask_capture()
+  flasks_panel.save(saveloc + "flasks_panel.png")
 
-  flask1.img.save(saveloc + "flask1.jpg")
-  flask2.img.save(saveloc + "flask2.jpg")
-  flask3.img.save(saveloc + "flask3.jpg")
-  flask4.img.save(saveloc + "flask4.jpg")
-  flask5.img.save(saveloc + "flask5.jpg")
+  flask1.img.save(saveloc + "flask1.png")
+  flask2.img.save(saveloc + "flask2.png")
+  flask3.img.save(saveloc + "flask3.png")
+  flask4.img.save(saveloc + "flask4.png")
+  flask5.img.save(saveloc + "flask5.png")
 
   life_init()
-  life_panel.save(saveloc + "life.jpg")
+  life_panel.save(saveloc + "life.png")
 
   mana_init()
-  mana_panel.save(saveloc + "mana_panel.jpg")
+  mana_panel.save(saveloc + "mana_panel.png")
 
-#init_test("/home/lemon/Documents/GitHub/poepyautopot/images/")
+def key_press_init(shortest, longest, press_range):
+  global key_press_short_low, key_press_short_high, key_press_long_low, key_press_long_high
+  key_press_short_low = shortest - press_range
+  key_press_short_high = shortest + press_range
+  key_press_long_low = longest - press_range
+  key_press_long_high = longest + press_range
 
-def keyboard_press():
+def key_press(num):
+  # Bell curve to more closely group presses
+  def bell_curve(min, max, mu, sig):
+    while True:
+      value = int(random.gauss(mu, sig))
+      if min <= value <= max:
+        return value
+
+  # Press the key
   ui = UInput.from_device(keyboard_event)
-  ui.write(e.EV_KEY, e.KEY_1, 1)
+  ui.write(e.EV_KEY, num, 1)
   ui.syn()
 
-  # Apply some variation to keypress length
-  random_sleep = random.randint(44, 181)
-  time.sleep(random_sleep / 1000.0)
+  # Slightly variate keypress length range
+  random_range_low = random.randint(key_press_short_low, key_press_short_high)
+  random_range_high = random.randint(key_press_long_low, key_press_long_high)
 
-  ui.write(e.EV_KEY, e.KEY_1, 0)
+  # Variate keypress length with random lows and highs, q3, and std dev.
+  random_key_press_sleep = bell_curve(random_range_low, random_range_high, third_value_key_press, std_dev_key_press)
+  time.sleep(random_key_press_sleep / 1000.0)
+
+  # Release key
+  ui.write(e.EV_KEY, num, 0)
   ui.syn()
   ui.close()
 
+def key_press_test(slp, i):
+  # Give time to move cursor
+  time.sleep(slp)
+  key_map = {
+    1: e.KEY_1,
+    2: e.KEY_2,
+    3: e.KEY_3,
+    4: e.KEY_4,
+    5: e.KEY_5,
+  }
+  while i > 0:
+    random_key = random.randint(1, 5)
+    key_press(key_map[random_key])
+    i -= 1
 
-
+# Defaults
+flask_init()
+key_press_init(shortest_key_press, longest_key_press, range_key_press)
+# Tests
+image_init_test(image_save_location)
+key_press_test(3, 20)
 
 #runnerstate = False
 
