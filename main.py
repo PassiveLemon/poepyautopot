@@ -1,6 +1,15 @@
 import numpy as np
 import pyautogui as pag
 import keyboard as kb
+import random as random
+import time as time
+from evdev import UInput, ecodes as e
+
+# Hardware
+keyboard_event = "/dev/input/event0"
+# Account for the possibility of screen above or left of the game. This assumes a default 1080p for every screen.
+screen_offset_x = 1920
+screen_offset_y = 0
 
 def flask_init():
   # Template for flasks
@@ -26,7 +35,7 @@ def flask_init():
 
   # Image with panel of flasks
   global flasks_panel
-  flasks_panel = pag.screenshot(region=(2230, 990, 223, 80))
+  flasks_panel = pag.screenshot(region=(310 + screen_offset_x, 990, 223, 80))
 
   # Indivial flasks for each slot
   flask1.img = flasks_panel.crop((1, 0, 37, 80))
@@ -37,11 +46,11 @@ def flask_init():
 
 def life_init():
   global life_panel
-  life_panel = pag.screenshot(region=(2020, 875, 2, 200))
+  life_panel = pag.screenshot(region=(100 + screen_offset_x, 875, 2, 200))
 
 def mana_init():
   global mana_panel
-  mana_panel = pag.screenshot(region=(3720, 875, 2, 200))
+  mana_panel = pag.screenshot(region=(1800 + screen_offset_x, 875, 2, 200))
 
 def init_test(saveloc):
   flask_init()
@@ -59,7 +68,27 @@ def init_test(saveloc):
   mana_init()
   mana_panel.save(saveloc + "mana_panel.jpg")
 
-init_test("/home/lemon/Documents/GitHub/private/Utils/PyAutopot/images/")
+#init_test("/home/lemon/Documents/GitHub/poepyautopot/images/")
+
+def keyboard_press():
+  ui = UInput.from_device(keyboard_event)
+  ui.write(e.EV_KEY, e.KEY_1, 1)
+  ui.syn()
+
+  # Apply some variation to keypress length
+  random_sleep = random.randint(44, 181)
+  time.sleep(random_sleep / 1000.0)
+
+  ui.write(e.EV_KEY, e.KEY_1, 0)
+  ui.syn()
+  ui.close()
+
+
+
+
+#runnerstate = False
+
+#kb.add_hotkey('page up, page down', lambda: runnerstate = True)
 
 #while kb.is_pressed('esc') == false:
 #  width, height = pic.size
@@ -67,5 +96,5 @@ init_test("/home/lemon/Documents/GitHub/private/Utils/PyAutopot/images/")
 #  for x in range(0, width, 10):
 #    for y in range(0, height, 10):
 #      r, g, b = pic.getpixel((x,y))
-#
+
 #      if r == x and g == x and b == x:
