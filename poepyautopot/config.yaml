@@ -1,15 +1,13 @@
 # Hardware --------------------
 
-# The /dev/input/event# for your keyboard
 keyboard_event: "/dev/input/event0"
-# Account for the possibility of screen above or left of the game. This assumes the game is at 1080p fullscreen!
 screen_offset:
   x: 1920
   y: 0
 
 # Key press data --------------
 
-# WRITE THESE AS SECONDS. They will get converted to milliseconds.
+# WRITE THESE AS SECONDS! They will get converted to milliseconds.
 
 # My shortest was 54 ms, fastest was 141 ms.
 # My standard deviation was 21 ms.
@@ -20,11 +18,17 @@ key_press:
   range: 5
   std_dev: 21
   target: 110
+  test:
+    enable: True
+    delay: 3
+    count: 20
 
 # Flasks ----------------------
 flask1:
   enable: True
 
 # Testing ---------------------
-image_save_location: "/home/lemon/Documents/GitHub/poepyautopot/tests/images/"
+image_test:
+  enable: False
+  save_location: "/home/lemon/Documents/GitHub/poepyautopot/tests/images/"
 
