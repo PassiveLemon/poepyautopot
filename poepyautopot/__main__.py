@@ -158,7 +158,8 @@ def key_press_init():
 # Utility
 def life_check():
   life_panel = ImageGrab.grab(bbox=(101 + screen_offset_x, 875 + screen_offset_y, 102 + screen_offset_x, 1075 + screen_offset_y))
-  r, g, b = life_panel.getpixel((0, 130))
+  life_panel_load = life_panel.load()
+  r, g, b = life_panel_load[0, 130]
   if 101 <= r <= 111 and 9 <= g <= 19 and 15 <= b <= 25:
     life.need = False
   else:
@@ -166,7 +167,8 @@ def life_check():
 
 def mana_check():
   mana_panel = ImageGrab.grab(bbox=(1801 + screen_offset_x, 875 + screen_offset_y, 1802 + screen_offset_x, 1075 + screen_offset_y))
-  r, g, b = mana_panel.getpixel((0, 130))
+  mana_panel_load = mana_panel.load()
+  r, g, b = mana_panel_load[0, 130]
   if 8 <= r <= 18 and 71 <= g <= 81 and 150 <= b <= 160:
     mana.need = False
   else:
@@ -176,12 +178,12 @@ def flask_check():
   #with mss.mss() as sct:
   #  flasks_panel = sct.grab(310 + screen_offset_x, 990 + screen_offset_y, 533 + screen_offset_x, 1070 + screen_offset_y)
   flasks_panel = ImageGrab.grab(bbox=(310 + screen_offset_x, 990 + screen_offset_y, 533 + screen_offset_x, 1070 + screen_offset_y))
-
+  flasks_panel_load = flasks_panel.load()
 
   if flask1_enable is True:
     x1_raw, y1_raw = ast.literal_eval(flask1_pixel)
     x1_off = (int(x1_raw) + int(flask1_x_offset))
-    r1, g1, b1 = flasks_panel.getpixel((x1_off, y1_raw))
+    r1, g1, b1 = flasks_panel_load[x1_off, y1_raw]
     r1_empty, g1_empty, b1_empty, = ast.literal_eval(flask1_empty)
     r1_empty_min, r1_empty_max = r1_empty - 5, r1_empty + 5
     g1_empty_min, g1_empty_max = g1_empty - 5, g1_empty + 5
@@ -194,7 +196,7 @@ def flask_check():
   if flask2_enable is True:
     x2_raw, y2_raw = ast.literal_eval(flask2_pixel)
     x2_off = (int(x2_raw) + int(flask2_x_offset))
-    r2, g2, b2 = flasks_panel.getpixel((x2_off, y2_raw))
+    r2, g2, b2 = flasks_panel_load[x2_off, y2_raw]
     r2_empty, g2_empty, b2_empty, = ast.literal_eval(flask2_empty)
     r2_empty_min, r2_empty_max = r2_empty - 5, r2_empty + 5
     g2_empty_min, g2_empty_max = g2_empty - 5, g2_empty + 5
@@ -207,7 +209,7 @@ def flask_check():
   if flask3_enable is True:
     x3_raw, y3_raw = ast.literal_eval(flask3_pixel)
     x3_off = (int(x3_raw) + int(flask3_x_offset))
-    r3, g3, b3 = flasks_panel.getpixel((x3_off, y3_raw))
+    r3, g3, b3 = flasks_panel_load[x3_off, y3_raw]
     r3_empty, g3_empty, b3_empty, = ast.literal_eval(flask3_empty)
     r3_empty_min, r3_empty_max = r3_empty - 5, r3_empty + 5
     g3_empty_min, g3_empty_max = g3_empty - 5, g3_empty + 5
@@ -220,7 +222,7 @@ def flask_check():
   if flask4_enable is True:
     x4_raw, y4_raw = ast.literal_eval(flask4_pixel)
     x4_off = (int(x4_raw) + int(flask4_x_offset))
-    r4, g4, b4 = flasks_panel.getpixel((x4_off, y4_raw))
+    r4, g4, b4 = flasks_panel_load[x4_off, y4_raw]
     r4_empty, g4_empty, b4_empty, = ast.literal_eval(flask4_empty)
     r4_empty_min, r4_empty_max = r4_empty - 5, r4_empty + 5
     g4_empty_min, g4_empty_max = g4_empty - 5, g4_empty + 5
@@ -233,7 +235,7 @@ def flask_check():
   if flask5_enable is True:
     x5_raw, y5_raw = ast.literal_eval(flask5_pixel)
     x5_off = (int(x5_raw) + int(flask5_x_offset))
-    r5, g5, b5 = flasks_panel.getpixel((x5_off, y5_raw))
+    r5, g5, b5 = flasks_panel_load[x5_off, y5_raw]
     r5_empty, g5_empty, b5_empty, = ast.literal_eval(flask5_empty)
     r5_empty_min, r5_empty_max = r5_empty - 5, r5_empty + 5
     g5_empty_min, g5_empty_max = g5_empty - 5, g5_empty + 5
