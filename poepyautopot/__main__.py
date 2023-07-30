@@ -6,6 +6,7 @@ import yaml
 import pyautogui
 import mss
 import mss.tools
+import threading
 from PIL import ImageGrab
 from evdev import UInput, ecodes as e
 
@@ -145,13 +146,8 @@ def key_press_init():
 #  mana_panel = pyautogui.screenshot(region=(1800 + screen_offset_x, 875 + screen_offset_y, 1, 200))
 #  flasks_panel = pyautogui.screenshot(region=(310 + screen_offset_x, 990 + screen_offset_y, 223, 80))
 
-def image_capture():
-  global life_panel, mana_panel, flasks_panel
-  life_panel = ImageGrab.grab(bbox=(101 + screen_offset_x, 875 + screen_offset_y, 102 + screen_offset_x, 1075 + screen_offset_y))
-  mana_panel = ImageGrab.grab(bbox=(1801 + screen_offset_x, 875 + screen_offset_y, 1802 + screen_offset_x, 1075 + screen_offset_y))
-  flasks_panel = ImageGrab.grab(bbox=(310 + screen_offset_x, 990 + screen_offset_y, 533 + screen_offset_x, 1070 + screen_offset_y))
-
 def life_check():
+  life_panel = ImageGrab.grab(bbox=(101 + screen_offset_x, 875 + screen_offset_y, 102 + screen_offset_x, 1075 + screen_offset_y))
   r, g, b = life_panel.getpixel((0, 130))
   if 101 <= r <= 111 and 9 <= g <= 19 and 15 <= b <= 25:
     life.need = False
@@ -159,6 +155,7 @@ def life_check():
     life.need = True
 
 def mana_check():
+  mana_panel = ImageGrab.grab(bbox=(1801 + screen_offset_x, 875 + screen_offset_y, 1802 + screen_offset_x, 1075 + screen_offset_y))
   r, g, b = mana_panel.getpixel((0, 130))
   if 8 <= r <= 18 and 71 <= g <= 81 and 150 <= b <= 160:
     mana.need = False
@@ -166,6 +163,7 @@ def mana_check():
     mana.need = True
 
 def flask_check():
+  flasks_panel = ImageGrab.grab(bbox=(310 + screen_offset_x, 990 + screen_offset_y, 533 + screen_offset_x, 1070 + screen_offset_y))
   if flask1_enable is True:
     x1_raw, y1_raw = ast.literal_eval(flask1_pixel)
     x1_off = (int(x1_raw) + int(flask1_x_offset))
@@ -269,17 +267,29 @@ def main():
   life_mana_body_init()
   key_press_init()
 
+  threads = []
   i = 0
   while True:
-    image_capture()
     if life_enable is True:
-      life_check()
+      life_check_thread = threading.Thread(target=life_check)
+      threads.append(life_check_thread)
+      life_check_thread.start()
     if mana_enable is True:
-      mana_check()
+      mana_check_thread = threading.Thread(target=mana_check)
+      threads.append(mana_check_thread)
+      mana_check_thread.start()
     if flask_enable is True:
-      flask_check()
+      flask_check_thread = threading.Thread(target=flask_check)
+      threads.append(flask_check_thread)
+      flask_check_thread.start()
     if debug_enable is True:
-      image_save()
+      image_save_thread = threading.Thread(target=image_save)
+      threads.append(image_save_thread)
+      image_save_thread.start()
+
+    for thread in threads:
+      thread.join()
+
     print(f"life-{life.need} mana-{mana.need} 1-{flask1.valid} 2-{flask2.valid} 3-{flask3.valid} 4-{flask4.valid} 5-{flask5.valid}")
 
     if life.need is True:
