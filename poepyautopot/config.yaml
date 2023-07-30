@@ -119,11 +119,12 @@ main:
   enable: True
   life: True
   mana: False
+  flask: True
 
 debug:
-  enable: True
+  enable: False
   image_save:
-    enable: True
+    enable: False
     location: "/home/lemon/Documents/GitHub/poepyautopot/tests/images/"
 
 test:

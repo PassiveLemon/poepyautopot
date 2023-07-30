@@ -4,6 +4,8 @@ import ast
 import asyncio
 import yaml
 import pyautogui
+import mss
+import mss.tools
 from evdev import UInput, ecodes as e
 
 
@@ -71,11 +73,12 @@ def config_init():
   flask5_duration = flask5_type["duration"] #g
   flask5_x_offset = flask5["x_offset"] #g
 
-  global main_enable, life_enable, mana_enable
+  global main_enable, life_enable, mana_enable, flask_enable
   main = yaml_config["main"]
   main_enable = main["enable"] #g
   life_enable = main["life"] #g
   mana_enable = main["mana"] #g
+  flask_enable = main["flask"] #g
 
   global debug_enable, image_save_enable, image_save_location
   debug = yaml_config["debug"]
@@ -135,43 +138,91 @@ def key_press_init():
 
 
 # Utility
-def life_check():
+def image_capture():
+  global life_panel, mana_panel, flasks_panel
   life_panel = pyautogui.screenshot(region=(100 + screen_offset_x, 875 + screen_offset_y, 2, 200))
+  mana_panel = pyautogui.screenshot(region=(1800 + screen_offset_x, 875 + screen_offset_y, 2, 200))
+  flasks_panel = pyautogui.screenshot(region=(310 + screen_offset_x, 990 + screen_offset_y, 223, 80))
 
+def life_check():
   r, g, b = life_panel.getpixel((1, 130))
-
   if 101 <= r <= 111 and 9 <= g <= 19 and 15 <= b <= 25:
     life.need = False
   else:
     life.need = True
 
 def mana_check():
-  mana_panel = pyautogui.screenshot(region=(1800 + screen_offset_x, 875 + screen_offset_y, 2, 200))
-
   r, g, b = mana_panel.getpixel((2, 50))
-
   if 8 <= r <= 18 and 71 <= g <= 81 and 150 <= b <= 160:
     mana.need = False
   else:
     mana.need = True
 
-def flask_check(flask_pixel, flask_x_offset, flask_empty, flask):
-  flasks_panel = pyautogui.screenshot(region=(310 + screen_offset_x, 990 + screen_offset_y, 223, 80))
+def flask_check():
+  if flask1_enable is True:
+    x1_raw, y1_raw = ast.literal_eval(flask1_pixel)
+    x1_off = (int(x1_raw) + int(flask1_x_offset))
+    r1, g1, b1 = flasks_panel.getpixel((x1_off, y1_raw))
+    r1_empty, g1_empty, b1_empty, = ast.literal_eval(flask1_empty)
+    r1_empty_min, r1_empty_max = r1_empty - 5, r1_empty + 5
+    g1_empty_min, g1_empty_max = g1_empty - 5, g1_empty + 5
+    b1_empty_min, b1_empty_max = b1_empty - 5, b1_empty + 5
+    if r1_empty_min <= r1 <= r1_empty_max and g1_empty_min <= g1 <= g1_empty_max and b1_empty_min <= b1 <= b1_empty_max:
+      flask1.valid = False
+    else:
+      flask1.valid = True
 
-  x_raw, y_raw = ast.literal_eval(flask_pixel)
-  x_off = (int(x_raw) + int(flask_x_offset))
+  if flask2_enable is True:
+    x2_raw, y2_raw = ast.literal_eval(flask2_pixel)
+    x2_off = (int(x2_raw) + int(flask2_x_offset))
+    r2, g2, b2 = flasks_panel.getpixel((x2_off, y2_raw))
+    r2_empty, g2_empty, b2_empty, = ast.literal_eval(flask2_empty)
+    r2_empty_min, r2_empty_max = r2_empty - 5, r2_empty + 5
+    g2_empty_min, g2_empty_max = g2_empty - 5, g2_empty + 5
+    b2_empty_min, b2_empty_max = b2_empty - 5, b2_empty + 5
+    if r2_empty_min <= r2 <= r2_empty_max and g2_empty_min <= g2 <= g2_empty_max and b2_empty_min <= b2 <= b2_empty_max:
+      flask2.valid = False
+    else:
+      flask2.valid = True
 
-  r, g, b = flasks_panel.getpixel((x_off, y_raw))
+  if flask3_enable is True:
+    x3_raw, y3_raw = ast.literal_eval(flask3_pixel)
+    x3_off = (int(x3_raw) + int(flask3_x_offset))
+    r3, g3, b3 = flasks_panel.getpixel((x3_off, y3_raw))
+    r3_empty, g3_empty, b3_empty, = ast.literal_eval(flask3_empty)
+    r3_empty_min, r3_empty_max = r3_empty - 5, r3_empty + 5
+    g3_empty_min, g3_empty_max = g3_empty - 5, g3_empty + 5
+    b3_empty_min, b3_empty_max = b3_empty - 5, b3_empty + 5
+    if r3_empty_min <= r3 <= r3_empty_max and g3_empty_min <= g3 <= g3_empty_max and b3_empty_min <= b3 <= b3_empty_max:
+      flask3.valid = False
+    else:
+      flask3.valid = True
+  
+  if flask4_enable is True:
+    x4_raw, y4_raw = ast.literal_eval(flask4_pixel)
+    x4_off = (int(x4_raw) + int(flask4_x_offset))
+    r4, g4, b4 = flasks_panel.getpixel((x4_off, y4_raw))
+    r4_empty, g4_empty, b4_empty, = ast.literal_eval(flask4_empty)
+    r4_empty_min, r4_empty_max = r4_empty - 5, r4_empty + 5
+    g4_empty_min, g4_empty_max = g4_empty - 5, g4_empty + 5
+    b4_empty_min, b4_empty_max = b4_empty - 5, b4_empty + 5
+    if r4_empty_min <= r4 <= r4_empty_max and g4_empty_min <= g4 <= g4_empty_max and b4_empty_min <= b4 <= b4_empty_max:
+      flask4.valid = False
+    else:
+      flask4.valid = True
 
-  r_empty, g_empty, b_empty, = ast.literal_eval(flask_empty)
-  r_empty_min, r_empty_max = r_empty - 5, r_empty + 5
-  g_empty_min, g_empty_max = g_empty - 5, g_empty + 5
-  b_empty_min, b_empty_max = b_empty - 5, b_empty + 5
-
-  if r_empty_min <= r <= r_empty_max and g_empty_min <= g <= g_empty_max and b_empty_min <= b <= b_empty_max:
-    flask.valid = False
-  else:
-    flask.valid = True
+  if flask5_enable is True:
+    x5_raw, y5_raw = ast.literal_eval(flask5_pixel)
+    x5_off = (int(x5_raw) + int(flask5_x_offset))
+    r5, g5, b5 = flasks_panel.getpixel((x5_off, y5_raw))
+    r5_empty, g5_empty, b5_empty, = ast.literal_eval(flask5_empty)
+    r5_empty_min, r5_empty_max = r5_empty - 5, r5_empty + 5
+    g5_empty_min, g5_empty_max = g5_empty - 5, g5_empty + 5
+    b5_empty_min, b5_empty_max = b5_empty - 5, b5_empty + 5
+    if r5_empty_min <= r5 <= r5_empty_max and g5_empty_min <= g5 <= g5_empty_max and b5_empty_min <= b5 <= b5_empty_max:
+      flask5.valid = False
+    else:
+      flask5.valid = True
 
 def key_press(num):
   # Bell curve to more closely group presses
@@ -194,28 +245,15 @@ def key_press(num):
   ui.write(e.EV_KEY, num, 0)
   ui.syn()
   ui.close()
-
-  # Print pressed key and its length
-  key_map = {
-    e.KEY_1: 1,
-    e.KEY_2: 2,
-    e.KEY_3: 3,
-    e.KEY_4: 4,
-    e.KEY_5: 5,
-  }
-  print(f"{key_map[num]} ({random_key_press_sleep} ms)")\
+  print(f"{num} ({random_key_press_sleep} ms)")\
 
 
 # Debug
 def image_save():
-  life_panel = pyautogui.screenshot(region=(100 + screen_offset_x, 875 + screen_offset_y, 2, 200))
-  mana_panel = pyautogui.screenshot(region=(1800 + screen_offset_x, 875 + screen_offset_y, 2, 200))
-  flasks_panel = pyautogui.screenshot(region=(310 + screen_offset_x, 990 + screen_offset_y, 223, 80))
-
+  image_capture()
   life_panel.save(image_save_location + "life.png")
   mana_panel.save(image_save_location + "mana_panel.png")
   flasks_panel.save(image_save_location + "flasks_panel.png")
-
 
 # Main
 def main():
@@ -224,20 +262,15 @@ def main():
   life_mana_body_init()
   key_press_init()
 
+  i = 0
   while True:
+    image_capture()
     if life_enable is True:
       life_check()
-    if flask1_enable is True:
-      flask_check(flask1_pixel, flask1_x_offset, flask1_empty, flask1)
-    if flask2_enable is True:
-      flask_check(flask2_pixel, flask2_x_offset, flask2_empty, flask2)
-    if flask3_enable is True:
-      flask_check(flask3_pixel, flask3_x_offset, flask3_empty, flask3)
-    if flask4_enable is True:
-      flask_check(flask4_pixel, flask4_x_offset, flask4_empty, flask4)
-    if flask5_enable is True:
-      flask_check(flask5_pixel, flask5_x_offset, flask5_empty, flask5)
-
+    if mana_enable is True:
+      mana_check()
+    if flask_enable is True:
+      flask_check()
     if debug_enable is True:
       image_save()
       print(f"life-{life.need} mana-{mana.need} 1-{flask1.valid} 2-{flask2.valid} 3-{flask3.valid} 4-{flask4.valid} 5-{flask5.valid}")
@@ -255,6 +288,9 @@ def main():
         key_press(e.KEY_5)
       else:
         print("Life tick not available")
+    i += 1
+
+    print(i)
 
 if main_enable is True:
   main()
