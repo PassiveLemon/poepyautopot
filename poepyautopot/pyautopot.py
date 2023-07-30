@@ -13,10 +13,10 @@ import threading
 import yaml
 import ctypes.util
 
-x11 = ctypes.util.find_library("X11")
-if not x11:
-  print("No X11.")
-  exit()
+#x11 = ctypes.util.find_library("X11")
+#if not x11:
+#  print("No X11.")
+#  exit()
 
 # Init
 def config_init():
@@ -320,8 +320,8 @@ async def main():
         await asyncio.gather(key_press(e.KEY_5))
       else:
         print("Life tick not available")
-    i += 1
 
+    i += 1
     print(i)
 
 if main_enable is True:
