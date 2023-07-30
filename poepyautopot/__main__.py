@@ -7,6 +7,7 @@ import pyautogui
 import mss
 import mss.tools
 import threading
+import asyncio
 from PIL import ImageGrab
 from evdev import UInput, ecodes as e
 
@@ -229,7 +230,7 @@ def flask_check():
     else:
       flask5.valid = True
 
-def key_press(num):
+async def key_press(num):
   # Bell curve to more closely group presses
   def bell_curve(min, max, sig, mu):
     while True:
@@ -261,7 +262,7 @@ def image_save():
   flasks_panel.save(image_save_location + "flasks_panel.png")
 
 # Main
-def main():
+async def main():
   config_init()
   flask_body_init()
   life_mana_body_init()
@@ -294,15 +295,15 @@ def main():
 
     if life.need is True:
       if flask1.valid is True and flask1.enable is True:
-        key_press(e.KEY_1)
+        await asyncio.gather(key_press(e.KEY_1))
       elif flask2.valid is True and flask2.enable is True:
-        key_press(e.KEY_2)
+        await asyncio.gather(key_press(e.KEY_2))
       elif flask3.valid is True and flask3.enable is True:
-        key_press(e.KEY_3)
+        await asyncio.gather(key_press(e.KEY_3))
       elif flask4.valid is True and flask4.enable is True:
-        key_press(e.KEY_4)
+        await asyncio.gather(key_press(e.KEY_4))
       elif flask5.valid is True and flask5.enable is True:
-        key_press(e.KEY_5)
+        await asyncio.gather(key_press(e.KEY_5))
       else:
         print("Life tick not available")
     i += 1
@@ -310,7 +311,7 @@ def main():
     print(i)
 
 if main_enable is True:
-  main()
+  asyncio.run(main())
 
 
 # Tests
