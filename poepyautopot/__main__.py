@@ -1,15 +1,35 @@
+#!/usr/bin/env python3
+
+import argparse
 import ast
 import asyncio
 from evdev import UInput, ecodes as e
+import mss
+import os
 from PIL import ImageGrab
 import random
 import time
 import threading
 import yaml
+import ctypes.util
+
+
+
+#x11 = ctypes.util.find_library("X11")
+#if not x11:
+#  print("No X11.")
+#  exit()
 
 # Init
 def config_init():
-  yaml_config = yaml.safe_load(open("./config.yaml"))
+  parser = argparse.ArgumentParser()
+
+  parser.add_argument("-f", "--file", required=True)
+  args = parser.parse_args()
+
+  config_file = args.file
+
+  yaml_config = yaml.safe_load(open(config_file))
 
   global keyboard_event, screen_offset_x, screen_offset_y
   keyboard_event = yaml_config["keyboard_event"] #g
@@ -153,7 +173,11 @@ def mana_check():
     mana.need = True
 
 def flask_check():
+  #with mss.mss() as sct:
+  #  flasks_panel = sct.grab(310 + screen_offset_x, 990 + screen_offset_y, 533 + screen_offset_x, 1070 + screen_offset_y)
   flasks_panel = ImageGrab.grab(bbox=(310 + screen_offset_x, 990 + screen_offset_y, 533 + screen_offset_x, 1070 + screen_offset_y))
+
+
   if flask1_enable is True:
     x1_raw, y1_raw = ast.literal_eval(flask1_pixel)
     x1_off = (int(x1_raw) + int(flask1_x_offset))
