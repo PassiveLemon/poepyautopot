@@ -1,1 +1,1 @@
-from pyautopot.pyautopot import main
+from poepyautopot.poepyautopot import main
