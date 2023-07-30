@@ -13,12 +13,10 @@ import threading
 import yaml
 import ctypes.util
 
-
-
-#x11 = ctypes.util.find_library("X11")
-#if not x11:
-#  print("No X11.")
-#  exit()
+x11 = ctypes.util.find_library("X11")
+if not x11:
+  print("No X11.")
+  exit()
 
 # Init
 def config_init():
@@ -157,7 +155,8 @@ def key_press_init():
 
 # Utility
 def life_check():
-  life_panel = ImageGrab.grab(bbox=(101 + screen_offset_x, 875 + screen_offset_y, 102 + screen_offset_x, 1075 + screen_offset_y))
+  with mss.mss() as sct:
+    life_panel = sct.grab(101 + screen_offset_x, 875 + screen_offset_y, 102 + screen_offset_x, 1075 + screen_offset_y)
   life_panel_load = life_panel.load()
   r, g, b = life_panel_load[0, 130]
   if 101 <= r <= 111 and 9 <= g <= 19 and 15 <= b <= 25:
@@ -166,7 +165,8 @@ def life_check():
     life.need = True
 
 def mana_check():
-  mana_panel = ImageGrab.grab(bbox=(1801 + screen_offset_x, 875 + screen_offset_y, 1802 + screen_offset_x, 1075 + screen_offset_y))
+  with mss.mss() as sct:
+    mana_panel = sct.grab(1801 + screen_offset_x, 875 + screen_offset_y, 1802 + screen_offset_x, 1075 + screen_offset_y)
   mana_panel_load = mana_panel.load()
   r, g, b = mana_panel_load[0, 130]
   if 8 <= r <= 18 and 71 <= g <= 81 and 150 <= b <= 160:
@@ -175,9 +175,8 @@ def mana_check():
     mana.need = True
 
 def flask_check():
-  #with mss.mss() as sct:
-  #  flasks_panel = sct.grab(310 + screen_offset_x, 990 + screen_offset_y, 533 + screen_offset_x, 1070 + screen_offset_y)
-  flasks_panel = ImageGrab.grab(bbox=(310 + screen_offset_x, 990 + screen_offset_y, 533 + screen_offset_x, 1070 + screen_offset_y))
+  with mss.mss() as sct:
+    flasks_panel = sct.grab(310 + screen_offset_x, 990 + screen_offset_y, 533 + screen_offset_x, 1070 + screen_offset_y)
   flasks_panel_load = flasks_panel.load()
 
   if flask1_enable is True:
