@@ -124,6 +124,7 @@ main:
 debug:
   enable: False
   image_save:
+    # This will MASSIVELY tank performance.
     enable: False
     location: "/home/lemon/Documents/GitHub/poepyautopot/tests/images/"
 

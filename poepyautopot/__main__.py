@@ -6,6 +6,7 @@ import yaml
 import pyautogui
 import mss
 import mss.tools
+from PIL import ImageGrab
 from evdev import UInput, ecodes as e
 
 
@@ -138,21 +139,27 @@ def key_press_init():
 
 
 # Utility
+#def image_capture():
+#  global life_panel, mana_panel, flasks_panel
+#  life_panel = pyautogui.screenshot(region=(101 + screen_offset_x, 875 + screen_offset_y, 1, 200))
+#  mana_panel = pyautogui.screenshot(region=(1800 + screen_offset_x, 875 + screen_offset_y, 1, 200))
+#  flasks_panel = pyautogui.screenshot(region=(310 + screen_offset_x, 990 + screen_offset_y, 223, 80))
+
 def image_capture():
   global life_panel, mana_panel, flasks_panel
-  life_panel = pyautogui.screenshot(region=(100 + screen_offset_x, 875 + screen_offset_y, 2, 200))
-  mana_panel = pyautogui.screenshot(region=(1800 + screen_offset_x, 875 + screen_offset_y, 2, 200))
-  flasks_panel = pyautogui.screenshot(region=(310 + screen_offset_x, 990 + screen_offset_y, 223, 80))
+  life_panel = ImageGrab.grab(bbox=(101 + screen_offset_x, 875 + screen_offset_y, 102 + screen_offset_x, 1075 + screen_offset_y))
+  mana_panel = ImageGrab.grab(bbox=(1801 + screen_offset_x, 875 + screen_offset_y, 1802 + screen_offset_x, 1075 + screen_offset_y))
+  flasks_panel = ImageGrab.grab(bbox=(310 + screen_offset_x, 990 + screen_offset_y, 533 + screen_offset_x, 1070 + screen_offset_y))
 
 def life_check():
-  r, g, b = life_panel.getpixel((1, 130))
+  r, g, b = life_panel.getpixel((0, 130))
   if 101 <= r <= 111 and 9 <= g <= 19 and 15 <= b <= 25:
     life.need = False
   else:
     life.need = True
 
 def mana_check():
-  r, g, b = mana_panel.getpixel((2, 50))
+  r, g, b = mana_panel.getpixel((0, 130))
   if 8 <= r <= 18 and 71 <= g <= 81 and 150 <= b <= 160:
     mana.need = False
   else:
@@ -273,7 +280,7 @@ def main():
       flask_check()
     if debug_enable is True:
       image_save()
-      print(f"life-{life.need} mana-{mana.need} 1-{flask1.valid} 2-{flask2.valid} 3-{flask3.valid} 4-{flask4.valid} 5-{flask5.valid}")
+    print(f"life-{life.need} mana-{mana.need} 1-{flask1.valid} 2-{flask2.valid} 3-{flask3.valid} 4-{flask4.valid} 5-{flask5.valid}")
 
     if life.need is True:
       if flask1.valid is True and flask1.enable is True:
