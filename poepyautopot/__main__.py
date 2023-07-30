@@ -1,16 +1,11 @@
-import random
-import time
 import ast
 import asyncio
-import yaml
-import pyautogui
-import mss
-import mss.tools
-import threading
-import asyncio
-from PIL import ImageGrab
 from evdev import UInput, ecodes as e
-
+from PIL import ImageGrab
+import random
+import time
+import threading
+import yaml
 
 # Init
 def config_init():
@@ -141,12 +136,6 @@ def key_press_init():
 
 
 # Utility
-#def image_capture():
-#  global life_panel, mana_panel, flasks_panel
-#  life_panel = pyautogui.screenshot(region=(101 + screen_offset_x, 875 + screen_offset_y, 1, 200))
-#  mana_panel = pyautogui.screenshot(region=(1800 + screen_offset_x, 875 + screen_offset_y, 1, 200))
-#  flasks_panel = pyautogui.screenshot(region=(310 + screen_offset_x, 990 + screen_offset_y, 223, 80))
-
 def life_check():
   life_panel = ImageGrab.grab(bbox=(101 + screen_offset_x, 875 + screen_offset_y, 102 + screen_offset_x, 1075 + screen_offset_y))
   r, g, b = life_panel.getpixel((0, 130))
