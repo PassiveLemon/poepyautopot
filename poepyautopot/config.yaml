@@ -1,3 +1,76 @@
+# Flask database --------------
+# Do not edit unless you know what you are doing.
+flasktype:
+  life:
+    small: &life_small
+      pixel:
+    medium: &life_mediuum
+      pixel:
+    large: &life_large
+      pixel:
+    greater: &life_greater
+      pixel:
+    grand: &life_grand
+      pixel:
+    giant: &life_giant
+      pixel:
+    colossal: &life_colossal
+      pixel:
+    sacred: &life_sacred
+      pixel:
+    hallowed: &life_hallowed
+      pixel: "21, 66"
+      empty: "37, 23, 19"
+      duration: 8
+    sanctified: &life_sanctified
+      pixel:
+    #divine: &life_divine
+    #  pixel:
+    #eternal: &life_eternal
+    #  pixel:
+  mana:
+    small:
+      pixels:
+    medium:
+      pixels:
+    large:
+      pixels:
+    greater:
+      pixels:
+    grand:
+      pixels:
+    giant:
+      pixels:
+    colossal:
+      pixels:
+    sacred:
+      pixels:
+    hallowed:
+      pixels:
+    sanctified:
+      pixels:
+    #divine:
+    #  pixels:
+    #eternal:
+    #  pixels:
+  hybrid:
+    small:
+      pixels:
+    medium:
+      pixels:
+    large:
+      pixels:
+    colossal:
+      pixels:
+    sacred:
+      pixels:
+    hallowed:
+      pixels:
+  #utility: WIP
+  #unique: WIP
+
+
+# User config -----------------
 # Hardware --------------------
 
 keyboard_event: "/dev/input/event0"
@@ -9,7 +82,7 @@ screen_offset:
 
 # WRITE THESE AS SECONDS! They will get converted to milliseconds.
 
-# My shortest was 54 ms, fastest was 141 ms.
+# My shortest was 54 ms, longest was 141 ms.
 # My standard deviation was 21 ms.
 # For my target, I used my Q3, 110 ms.
 key_press:
@@ -18,17 +91,44 @@ key_press:
   range: 5
   std_dev: 21
   target: 110
-  test:
-    enable: True
-    delay: 3
-    count: 20
 
 # Flasks ----------------------
 flask1:
   enable: True
-
-# Testing ---------------------
-image_test:
+  type: *life_hallowed
+  x_offset: 1
+flask2:
+  enable: True
+  type: *life_hallowed
+  x_offset: 47
+flask3:
   enable: False
-  save_location: "/home/lemon/Documents/GitHub/poepyautopot/tests/images/"
+  type: *life_hallowed
+  x_offset: 93
+flask4:
+  enable: False
+  type: *life_hallowed
+  x_offset: 139
+flask5:
+  enable: False
+  type: *life_hallowed
+  x_offset: 185
 
+# Functions -------------------
+main:
+  enable: True
+  life: True
+  mana: False
+
+debug:
+  enable: True
+  image_save:
+    enable: True
+    location: "/home/lemon/Documents/GitHub/poepyautopot/tests/images/"
+
+test:
+  enable: False
+  key_press_test:
+    enable: False
+    delay: 3
+    count: 20
