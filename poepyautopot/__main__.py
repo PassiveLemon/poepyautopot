@@ -2,14 +2,12 @@ import argparse
 import ast
 import asyncio
 from evdev import UInput, ecodes as e
-import mss
-import os
+import multiprocessing
 from PIL import ImageGrab
 import random
 import time
-import threading
 import yaml
-import ctypes.util
+#import ctypes.util
 
 #x11 = ctypes.util.find_library("X11")
 #if not x11:
@@ -114,38 +112,6 @@ def config_init():
 
 config_init()
 
-def life_mana_body_init():
-  class life_mana_body:
-    def __init__(self, enable, need):
-      self.enable = enable
-      self.need = need
-
-    def __str__(self):
-      return f"Object(enable={self.enable}, need={self.need})"
-
-  global life, mana
-  life = life_mana_body(enable=life_enable, need=False)
-  mana = life_mana_body(enable=mana_enable, need=False)
-
-def flask_body_init():
-  class flask_body:
-    def __init__(self, enable, valid, pixel, duration, img):
-      self.enable = enable
-      self.valid = valid
-      self.pixel = pixel
-      self.duration = duration
-      self.img = img
-
-    def __str__(self):
-      return f"Object(enable={self.enable}, valid={self.valid}, pixel={self.pixel}, duration={self.duration}, img={self.img})"
-
-  global flask1, flask2, flask3, flask4, flask5
-  flask1 = flask_body(enable=flask1_enable, valid=True, pixel=flask1_pixel, duration=flask1_duration, img=None)
-  flask2 = flask_body(enable=flask2_enable, valid=True, pixel=flask2_pixel, duration=flask2_duration, img=None)
-  flask3 = flask_body(enable=False, valid=True, pixel=None, duration=None, img=None)
-  flask4 = flask_body(enable=False, valid=True, pixel=None, duration=None, img=None)
-  flask5 = flask_body(enable=False, valid=True, pixel=None, duration=None, img=None)
-
 def key_press_init():
   global key_press_shortest_low, key_press_shortest_high, key_press_longest_low, key_press_longest_high
   key_press_shortest_low = key_press_shortest - key_press_range
@@ -155,94 +121,6 @@ def key_press_init():
 
 
 # Utility
-def screen_capture():
-  global screen_load
-  screen_capture = ImageGrab.grab(bbox=(screen_offset_x, screen_offset_y, 1920 + screen_offset_x, 1080 + screen_offset_y))
-  screen_load = screen_capture.load()
-
-  if debug_enable is True and image_save_enable is True:
-    screen_capture.save("./screen.png")
-
-def life_check():
-  r, g, b = screen_load[101, 1005]
-  if 101 <= r <= 111 and 9 <= g <= 19 and 15 <= b <= 25:
-    life.need = False
-  else:
-    life.need = True
-
-def mana_check():
-  r, g, b = screen_load[1801, 1005]
-  if 8 <= r <= 18 and 71 <= g <= 81 and 150 <= b <= 160:
-    mana.need = False
-  else:
-    mana.need = True
-
-def flask_check():
-  if flask1_enable is True:
-    x1_raw, y1_raw = ast.literal_eval(flask1_pixel)
-    x1_off = (int(x1_raw) + int(flask1_x_offset))
-    r1, g1, b1 = screen_load[x1_off, y1_raw]
-    r1_empty, g1_empty, b1_empty, = ast.literal_eval(flask1_empty)
-    r1_empty_min, r1_empty_max = r1_empty - 5, r1_empty + 5
-    g1_empty_min, g1_empty_max = g1_empty - 5, g1_empty + 5
-    b1_empty_min, b1_empty_max = b1_empty - 5, b1_empty + 5
-    if r1_empty_min <= r1 <= r1_empty_max and g1_empty_min <= g1 <= g1_empty_max and b1_empty_min <= b1 <= b1_empty_max:
-      flask1.valid = False
-    else:
-      flask1.valid = True
-
-  if flask2_enable is True:
-    x2_raw, y2_raw = ast.literal_eval(flask2_pixel)
-    x2_off = (int(x2_raw) + int(flask2_x_offset))
-    r2, g2, b2 = screen_load[x2_off, y2_raw]
-    r2_empty, g2_empty, b2_empty, = ast.literal_eval(flask2_empty)
-    r2_empty_min, r2_empty_max = r2_empty - 5, r2_empty + 5
-    g2_empty_min, g2_empty_max = g2_empty - 5, g2_empty + 5
-    b2_empty_min, b2_empty_max = b2_empty - 5, b2_empty + 5
-    if r2_empty_min <= r2 <= r2_empty_max and g2_empty_min <= g2 <= g2_empty_max and b2_empty_min <= b2 <= b2_empty_max:
-      flask2.valid = False
-    else:
-      flask2.valid = True
-
-  if flask3_enable is True:
-    x3_raw, y3_raw = ast.literal_eval(flask3_pixel)
-    x3_off = (int(x3_raw) + int(flask3_x_offset))
-    r3, g3, b3 = screen_load[x3_off, y3_raw]
-    r3_empty, g3_empty, b3_empty, = ast.literal_eval(flask3_empty)
-    r3_empty_min, r3_empty_max = r3_empty - 5, r3_empty + 5
-    g3_empty_min, g3_empty_max = g3_empty - 5, g3_empty + 5
-    b3_empty_min, b3_empty_max = b3_empty - 5, b3_empty + 5
-    if r3_empty_min <= r3 <= r3_empty_max and g3_empty_min <= g3 <= g3_empty_max and b3_empty_min <= b3 <= b3_empty_max:
-      flask3.valid = False
-    else:
-      flask3.valid = True
-  
-  if flask4_enable is True:
-    x4_raw, y4_raw = ast.literal_eval(flask4_pixel)
-    x4_off = (int(x4_raw) + int(flask4_x_offset))
-    r4, g4, b4 = screen_load[x4_off, y4_raw]
-    r4_empty, g4_empty, b4_empty, = ast.literal_eval(flask4_empty)
-    r4_empty_min, r4_empty_max = r4_empty - 5, r4_empty + 5
-    g4_empty_min, g4_empty_max = g4_empty - 5, g4_empty + 5
-    b4_empty_min, b4_empty_max = b4_empty - 5, b4_empty + 5
-    if r4_empty_min <= r4 <= r4_empty_max and g4_empty_min <= g4 <= g4_empty_max and b4_empty_min <= b4 <= b4_empty_max:
-      flask4.valid = False
-    else:
-      flask4.valid = True
-
-  if flask5_enable is True:
-    x5_raw, y5_raw = ast.literal_eval(flask5_pixel)
-    x5_off = (int(x5_raw) + int(flask5_x_offset))
-    r5, g5, b5 = screen_load[x5_off, y5_raw]
-    r5_empty, g5_empty, b5_empty, = ast.literal_eval(flask5_empty)
-    r5_empty_min, r5_empty_max = r5_empty - 5, r5_empty + 5
-    g5_empty_min, g5_empty_max = g5_empty - 5, g5_empty + 5
-    b5_empty_min, b5_empty_max = b5_empty - 5, b5_empty + 5
-    if r5_empty_min <= r5 <= r5_empty_max and g5_empty_min <= g5 <= g5_empty_max and b5_empty_min <= b5 <= b5_empty_max:
-      flask5.valid = False
-    else:
-      flask5.valid = True
-
 async def key_press(num, wait):
   # Bell curve to more closely group presses
   def bell_curve(min, max, sig, mu):
@@ -268,64 +146,161 @@ async def key_press(num, wait):
   print(f"waiting {wait} seconds")
   time.sleep(wait)
 
+def screen_capture():
+  global screen_load
+  screen_capture = ImageGrab.grab(bbox=(screen_offset_x, screen_offset_y, 1920 + screen_offset_x, 1080 + screen_offset_y))
+  screen_load = screen_capture.load()
+
+  if debug_enable is True and image_save_enable is True:
+    screen_capture.save("./screen.png")
+
+def life_check(life_need):
+  r, g, b = screen_load[101, 1005]
+  if 101 <= r <= 111 and 9 <= g <= 19 and 15 <= b <= 25:
+    life_need.value = False
+  else:
+    life_need.value = True
+
+def mana_check(mana_need):
+  r, g, b = screen_load[1801, 1005]
+  if 8 <= r <= 18 and 71 <= g <= 81 and 150 <= b <= 160:
+    mana_need.value = False
+  else:
+    mana_need.value = True
+
+def flask_check(flask1_valid, flask2_valid, flask3_valid, flask4_valid, flask5_valid):
+  if flask1_enable is True:
+    x1_raw, y1_raw = ast.literal_eval(flask1_pixel)
+    x1_off = (int(x1_raw) + int(flask1_x_offset))
+    r1, g1, b1 = screen_load[x1_off, y1_raw]
+    r1_empty, g1_empty, b1_empty, = ast.literal_eval(flask1_empty)
+    r1_empty_min, r1_empty_max = r1_empty - 5, r1_empty + 5
+    g1_empty_min, g1_empty_max = g1_empty - 5, g1_empty + 5
+    b1_empty_min, b1_empty_max = b1_empty - 5, b1_empty + 5
+    if r1_empty_min <= r1 <= r1_empty_max and g1_empty_min <= g1 <= g1_empty_max and b1_empty_min <= b1 <= b1_empty_max:
+      flask1_valid.value = False
+    else:
+      flask1_valid.value = True
+
+  if flask2_enable is True:
+    x2_raw, y2_raw = ast.literal_eval(flask2_pixel)
+    x2_off = (int(x2_raw) + int(flask2_x_offset))
+    r2, g2, b2 = screen_load[x2_off, y2_raw]
+    r2_empty, g2_empty, b2_empty, = ast.literal_eval(flask2_empty)
+    r2_empty_min, r2_empty_max = r2_empty - 5, r2_empty + 5
+    g2_empty_min, g2_empty_max = g2_empty - 5, g2_empty + 5
+    b2_empty_min, b2_empty_max = b2_empty - 5, b2_empty + 5
+    if r2_empty_min <= r2 <= r2_empty_max and g2_empty_min <= g2 <= g2_empty_max and b2_empty_min <= b2 <= b2_empty_max:
+      flask2_valid.value = False
+    else:
+      flask2_valid.value = True
+
+  if flask3_enable is True:
+    x3_raw, y3_raw = ast.literal_eval(flask3_pixel)
+    x3_off = (int(x3_raw) + int(flask3_x_offset))
+    r3, g3, b3 = screen_load[x3_off, y3_raw]
+    r3_empty, g3_empty, b3_empty, = ast.literal_eval(flask3_empty)
+    r3_empty_min, r3_empty_max = r3_empty - 5, r3_empty + 5
+    g3_empty_min, g3_empty_max = g3_empty - 5, g3_empty + 5
+    b3_empty_min, b3_empty_max = b3_empty - 5, b3_empty + 5
+    if r3_empty_min <= r3 <= r3_empty_max and g3_empty_min <= g3 <= g3_empty_max and b3_empty_min <= b3 <= b3_empty_max:
+      flask3_valid.value = False
+    else:
+      flask3_valid.value = True
+  
+  if flask4_enable is True:
+    x4_raw, y4_raw = ast.literal_eval(flask4_pixel)
+    x4_off = (int(x4_raw) + int(flask4_x_offset))
+    r4, g4, b4 = screen_load[x4_off, y4_raw]
+    r4_empty, g4_empty, b4_empty, = ast.literal_eval(flask4_empty)
+    r4_empty_min, r4_empty_max = r4_empty - 5, r4_empty + 5
+    g4_empty_min, g4_empty_max = g4_empty - 5, g4_empty + 5
+    b4_empty_min, b4_empty_max = b4_empty - 5, b4_empty + 5
+    if r4_empty_min <= r4 <= r4_empty_max and g4_empty_min <= g4 <= g4_empty_max and b4_empty_min <= b4 <= b4_empty_max:
+      flask4_valid.value = False
+    else:
+      flask4_valid.value = True
+
+  if flask5_enable is True:
+    x5_raw, y5_raw = ast.literal_eval(flask5_pixel)
+    x5_off = (int(x5_raw) + int(flask5_x_offset))
+    r5, g5, b5 = screen_load[x5_off, y5_raw]
+    r5_empty, g5_empty, b5_empty, = ast.literal_eval(flask5_empty)
+    r5_empty_min, r5_empty_max = r5_empty - 5, r5_empty + 5
+    g5_empty_min, g5_empty_max = g5_empty - 5, g5_empty + 5
+    b5_empty_min, b5_empty_max = b5_empty - 5, b5_empty + 5
+    if r5_empty_min <= r5 <= r5_empty_max and g5_empty_min <= g5 <= g5_empty_max and b5_empty_min <= b5 <= b5_empty_max:
+      flask5_valid.value = False
+    else:
+      flask5_valid.value = True
+
 # Main
 async def main():
-  flask_body_init()
-  life_mana_body_init()
   key_press_init()
 
-  threads = []
+  manager = multiprocessing.Manager()
+  life_need = manager.Value('b', False)
+  mana_need = manager.Value('b', False)
+  flask1_valid = manager.Value('b', True)
+  flask2_valid = manager.Value('b', True)
+  flask3_valid = manager.Value('b', True)
+  flask4_valid = manager.Value('b', True)
+  flask5_valid = manager.Value('b', True)
+  
   i = 0
   while True:
     screen_capture()
+
+    check_processes = []
     if life_enable is True:
-      life_check_thread = threading.Thread(target=life_check)
-      threads.append(life_check_thread)
-      life_check_thread.start()
+      life_check_process = multiprocessing.Process(target=life_check, args=[life_need])
+      check_processes.append(life_check_process)
     if mana_enable is True:
-      mana_check_thread = threading.Thread(target=mana_check)
-      threads.append(mana_check_thread)
-      mana_check_thread.start()
+      mana_check_process = multiprocessing.Process(target=mana_check, args=[mana_need])
+      check_processes.append(mana_check_process)
     if flask_enable is True:
-      flask_check_thread = threading.Thread(target=flask_check)
-      threads.append(flask_check_thread)
-      flask_check_thread.start()
+      flask_check_process = multiprocessing.Process(target=flask_check, args=[flask1_valid, flask2_valid, flask3_valid, flask4_valid, flask5_valid])
+      check_processes.append(flask_check_process)
 
-    for thread in threads:
-      thread.join()
+    for process in check_processes:
+      process.start()
+    for process in check_processes:
+      process.join()
 
-    print(f"life-{life.need} mana-{mana.need} 1-{flask1.valid} 2-{flask2.valid} 3-{flask3.valid} 4-{flask4.valid} 5-{flask5.valid}")
+    print(f"{i} life-{life_need.value} mana-{mana_need.value} 1-{flask1_valid.value} 2-{flask2_valid.value} 3-{flask3_valid.value} 4-{flask4_valid.value} 5-{flask5_valid.value}")
 
-    if life.need is True:
-      if flask1.valid is True and flask1.enable is True and flask1_react == "Life":
-        await asyncio.gather(key_press(e.KEY_1, flask1_duration))
-      elif flask2.valid is True and flask2.enable is True and flask2_react == "Life":
-        await asyncio.gather(key_press(e.KEY_2, flask2_duration))
-      elif flask3.valid is True and flask3.enable is True and flask3_react == "Life":
-        await asyncio.gather(key_press(e.KEY_3, flask3_duration))
-      elif flask4.valid is True and flask4.enable is True and flask4_react == "Life":
-        await asyncio.gather(key_press(e.KEY_4, flask4_duration))
-      elif flask5.valid is True and flask5.enable is True and flask5_react == "Life":
-        await asyncio.gather(key_press(e.KEY_5, flask5_duration))
+    key_press_threads = []
+    if life_need.value is True:
+      if flask1_valid.value is True and flask1_enable is True and flask1_react == "Life":
+        key_press_threads.append(asyncio.ensure_future(key_press(e.KEY_1, flask1_duration)))
+      elif flask2_valid.value is True and flask2_enable is True and flask2_react == "Life":
+        key_press_threads.append(asyncio.ensure_future(key_press(e.KEY_2, flask2_duration)))
+      elif flask3_valid.value is True and flask3_enable is True and flask3_react == "Life":
+        key_press_threads.append(asyncio.ensure_future(key_press(e.KEY_3, flask3_duration)))
+      elif flask4_valid.value is True and flask4_enable is True and flask4_react == "Life":
+        key_press_threads.append(asyncio.ensure_future(key_press(e.KEY_4, flask4_duration)))
+      elif flask5_valid.value is True and flask5_enable is True and flask5_react == "Life":
+        key_press_threads.append(asyncio.ensure_future(key_press(e.KEY_5, flask5_duration)))
       else:
         print("Life tick not available")
 
-    if mana.need is True:
-      if flask1.valid is True and flask1.enable is True and flask1_react == "Mana":
-        await asyncio.gather(key_press(e.KEY_1))
-      elif flask2.valid is True and flask2.enable is True and flask2_react == "Mana":
-        await asyncio.gather(key_press(e.KEY_2))
-      elif flask3.valid is True and flask3.enable is True and flask3_react == "Mana":
-        await asyncio.gather(key_press(e.KEY_3))
-      elif flask4.valid is True and flask4.enable is True and flask4_react == "Mana":
-        await asyncio.gather(key_press(e.KEY_4))
-      elif flask5.valid is True and flask5.enable is True and flask5_react == "Mana":
-        await asyncio.gather(key_press(e.KEY_5))
+    if mana_need.value is True:
+      if flask1_valid.value is True and flask1_enable is True and flask1_react == "Mana":
+        key_press_threads.append(asyncio.ensure_future(key_press(e.KEY_1, flask1_duration)))
+      elif flask2_valid.value is True and flask2_enable is True and flask2_react == "Mana":
+        key_press_threads.append(asyncio.ensure_future(key_press(e.KEY_2, flask2_duration)))
+      elif flask3_valid.value is True and flask3_enable is True and flask3_react == "Mana":
+        key_press_threads.append(asyncio.ensure_future(key_press(e.KEY_3, flask3_duration)))
+      elif flask4_valid.value is True and flask4_enable is True and flask4_react == "Mana":
+        key_press_threads.append(asyncio.ensure_future(key_press(e.KEY_4, flask4_duration)))
+      elif flask5_valid.value is True and flask5_enable is True and flask5_react == "Mana":
+        key_press_threads.append(asyncio.ensure_future(key_press(e.KEY_5, flask5_duration)))
       else:
         print("Mana tick not available")
+    
+    await asyncio.gather(*key_press_threads)
 
     i += 1
-    print(i)
 
 if main_enable is True:
   asyncio.run(main())
