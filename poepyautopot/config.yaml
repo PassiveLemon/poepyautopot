@@ -153,12 +153,12 @@ key_press:
 # Flasks ----------------------
 flask1:
   enable: True
-  type: *life_sanctified
+  type: *life_hallowed
   react: "Life"
   x_offset: 1
 flask2:
   enable: True
-  type: *life_sanctified
+  type: *life_hallowed
   react: "Life"
   x_offset: 47
 flask3:
@@ -189,7 +189,7 @@ debug:
   image_save:
     # This will MASSIVELY tank performance.
     enable: False
-    location: "/home/lemon/Documents/GitHub/poepyautopot/tests/images"
+    location: "/tmp/poepyautopot"
 
 test:
   enable: False
