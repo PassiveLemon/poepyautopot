@@ -50,6 +50,7 @@ These will use my data by default. </br>
 #### Flasks
 `flask#: enable:` Booleam to enable the flask to be automated. </br>
 `flask#: type:` What kind of flask it is. Ex: A sacred life flask. To set this, you must use the yaml anchor in the database. </br>
+`flask#: react:` This will cause the flask to react to either life or mana. This will prtimarily be used for utility/unique flasks. </br>
 `flask#: x_offset:` The pixel offset of the capture. Don't change this unless you know what you are doing. </br>
 
 #### Functions
