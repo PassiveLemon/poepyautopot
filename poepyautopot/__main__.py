@@ -144,7 +144,7 @@ async def key_press(num, wait):
   ui.close()
   print(f"{num} ({random_key_press_sleep} ms)")
   print(f"waiting {wait} seconds")
-  time.sleep(wait)
+  time.sleep(wait / 1.25)
 
 def screen_capture():
   global screen_load

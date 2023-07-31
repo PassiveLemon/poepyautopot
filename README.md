@@ -14,18 +14,16 @@ I am not responsible for any bans or data loss as a result of using this. This w
 * <b>Note:</b> The game must be in fullscreen at 1080p. Other methods might eventually be supported. You can always fix this yourself though.
 
 # Notes and tips
-I do not recommend relying on this to always keep you alive. It does not run quite fast enough for that yet. It works well for low and slow damage but getting hit too rapidly may kill you before it gets processed. I am currently working on speeding this up. </br>
+I do not recommend relying on this to always keep you alive. It may catch or save you but it is not a quaranteed replacement for your fingers. I do not think it is fast enough for that yet. I am currently working on speeding this up. </br>
 
-Currently on my system, it runs at around 30-50 Hz. Your system may vary. Once again, I am currently working on speeding this up. 60 Hz minimum is the goal. </br>
+Currently on my system, it runs at around 40-50 Hz. Your system may vary. Once again, I am currently working on speeding this up. 60 Hz minimum is the goal. </br>
 
-I recommend to run PoE at a frame rate of around 60-72 Hz. Running it too high will cause the game to get choppy and slow down the script. </br>
-
-I recommend using flasks that regenerate life as fast as possible (Ex: Sanctified, Eternal). There is no cooldown implemented yet so a slow flask may get ticked multiple times. </br>
+I recommend to run PoE at 60 FPS. Running it too high will cause the game to get choppy and it might slow down the script. </br>
 
 # Usage
 Clone the repo, edit the `config.yaml`, run `__main__.py`. </br>
 
-You can run the `kp_calc.py` script in utils to get a calculated data set for your key presses to use in the config. Of course you can use any numbers you want, I just recommend using actual data as it represents the physical capabilities of your keyboard and should theoretically make your key presses look more human. If your keyboard key presses physically cannot be shorter than 28 ms, you shouldn't be emulating a 2 ms key press. </br>
+You can run the `kp_calc.py` script in utils to get a calculated data set for your key presses to use in the config. You can use any numbers you want, I just recommend using actual data as it represents the physical capabilities of your keyboard and should theoretically make your key presses look more human. If your keyboard key presses physically cannot be shorter than 28 ms, you shouldn't be emulating a 2 ms key press. </br>
 
 # Configuration (config.yaml)
 ## Flask database
@@ -67,3 +65,5 @@ These will use my data by default. </br>
 `test: key_press_test: enable:` Boolean to enable the key_press test. </br>
 `test: key_press_test: delay:` Time before the test actually begins. Gives you time to move your cursor to where you want it. </br>
 `test: key_press_test: count:` The amount of key_presses to simulate. </br>
+
+Of course you can always edit the code itself to fit some of your needs. It's still very much a WIP so more is to come. There is still plenty of room for improvement and features. </br>
