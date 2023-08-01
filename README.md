@@ -23,9 +23,9 @@ I recommend to run PoE at 60 FPS. Running it too high will cause the game to get
 Currently, pixel values only detect if something is empty. This works easily but it not the most customizable. This may be improved in the future. </br>
 
 # Usage
-Clone the repo, edit the `config.yaml`, run `python3 sudo __main__.py -f <path to config file>`. </br>
+Clone the repo, edit the `config.yaml`, run `sudo python3 __main__.py -f <path to config file>`. </br>
 
-`-f | --file:` The location of your config.yaml (case sensitive). You can use relative paths like ~ . Will default to the included one if not set. Ex: `~/.config/poepyautopot/config.yaml`
+`-f | --file:` The location of your config.yaml. You can use relative paths like ~ . Will default to the included one if not set. Ex: `~/.config/poepyautopot/config.yaml`
 
 You can run the `kp_calc.py` script in utils to get a calculated data set for your key presses to use in the config. Just run it and follow the prompt. You can use any numbers you want, I just recommend using actual data as it represents the physical capabilities of your keyboard and should theoretically make your key presses look more human. If your keyboard key presses physically cannot be shorter than 28 ms, you shouldn't be emulating a 2 ms key press. </br>
 
