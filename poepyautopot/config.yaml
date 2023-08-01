@@ -1,140 +1,155 @@
-# Flask database --------------
+# Database --------------
 # Do not edit unless you know what you are doing.
-flasktype:
+database:
   life:
-    small: &life_small
-      pixel:
-      empty:
-      duration: 3
-    medium: &life_mediuum
-      pixel:
-      empty:
-      duration: 3.5
-    large: &life_large
-      pixel:
-      empty:
-      duration: 3.5
-    greater: &life_greater
-      pixel:
-      empty:
-      duration: 3.5
-    grand: &life_grand
-      pixel:
-      empty:
-      duration: 3
-    giant: &life_giant
-      pixel:
-      empty:
-      duration: 4
-    colossal: &life_colossal
-      pixel:
-      empty:
-      duration: 3.5
-    sacred: &life_sacred
-      pixel:
-      empty:
-      duration: 3
-    hallowed: &life_hallowed
-      pixel: "331, 1056"
-      empty: "37, 23, 19"
-      duration: 4
-    sanctified: &life_sanctified
-      pixel: "320, 1054"
-      empty: "47, 44, 36"
-      duration: 1.5
-    divine: &life_divine
-      pixel:
-      empty:
-      duration:
-    eternal: &life_eternal
-      pixel:
-      empty:
-      duration:
+    pixel: "(101, 1005)"
+    empty: "106, 14, 20"
   mana:
-    small: &mana_small
-      pixel:
-      empty:
-      duration: 3
-    medium: &mana_medium
-      pixel:
-      empty:
-      duration: 3.5
-    large: &mana_large
-      pixel:
-      empty:
-      duration: 4
-    greater: &mana_greater
-      pixel:
-      empty:
-      duration: 4
-    grand: &mana_grand
-      pixel:
-      empty:
-      duration: 4.5
-    giant: &mana_giant
-      pixel:
-      empty:
-      duration: 5
-    colossal: &mana_colossal
-      pixel:
-      empty:
-      duration: 5
-    sacred: &mana_sacred
-      pixel:
-      empty:
-      duration: 5.5
-    hallowed: &mana_hallowed
-      pixel:
-      empty:
-      duration: 6
-    sanctified: &mana_sanctified
-      pixel:
-      empty:
-      duration: 6.5
-    divine: &mana_divine
-      pixel:
-      empty:
-      duration:
-    eternal: &mana_eternal
-      pixel:
-      empty:
-      duration:
-  hybrid:
-    small:
-      pixel:
-      empty:
-      duration:
-    medium:
-      pixel:
-      empty:
-      duration:
-    large:
-      pixel:
-      empty:
-      duration:
-    colossal:
-      pixel:
-      empty:
-      duration:
-    sacred:
-      pixel:
-      empty:
-      duration:
-    hallowed:
-      pixel:
-      empty:
-      duration:
-  #utility: WIP
-  #unique: WIP
+    pixel: "(1801, 1005)"
+    empty: "13, 76, 155"
+  flask:
+    life:
+      small: &life_small
+        pixel:
+        empty:
+        duration: 3
+      medium: &life_mediuum
+        pixel:
+        empty:
+        duration: 3.5
+      large: &life_large
+        pixel:
+        empty:
+        duration: 3.5
+      greater: &life_greater
+        pixel:
+        empty:
+        duration: 3.5
+      grand: &life_grand
+        pixel:
+        empty:
+        duration: 3
+      giant: &life_giant
+        pixel:
+        empty:
+        duration: 4
+      colossal: &life_colossal
+        pixel:
+        empty:
+        duration: 3.5
+      sacred: &life_sacred
+        pixel:
+        empty:
+        duration: 3
+      hallowed: &life_hallowed
+        pixel: "(331, 1056)"
+        empty: "37, 23, 19"
+        duration: 4
+      sanctified: &life_sanctified
+        pixel: "(320, 1054)"
+        empty: "47, 44, 36"
+        duration: 1.5
+      divine: &life_divine
+        pixel:
+        empty:
+        duration:
+      eternal: &life_eternal
+        pixel:
+        empty:
+        duration:
+    mana:
+      small: &mana_small
+        pixel:
+        empty:
+        duration: 3
+      medium: &mana_medium
+        pixel:
+        empty:
+        duration: 3.5
+      large: &mana_large
+        pixel:
+        empty:
+        duration: 4
+      greater: &mana_greater
+        pixel:
+        empty:
+        duration: 4
+      grand: &mana_grand
+        pixel:
+        empty:
+        duration: 4.5
+      giant: &mana_giant
+        pixel:
+        empty:
+        duration: 5
+      colossal: &mana_colossal
+        pixel:
+        empty:
+        duration: 5
+      sacred: &mana_sacred
+        pixel:
+        empty:
+        duration: 5.5
+      hallowed: &mana_hallowed
+        pixel:
+        empty:
+        duration: 6
+      sanctified: &mana_sanctified
+        pixel:
+        empty:
+        duration: 6.5
+      divine: &mana_divine
+        pixel:
+        empty:
+        duration:
+      eternal: &mana_eternal
+        pixel:
+        empty:
+        duration:
+    hybrid:
+      small:
+        pixel:
+        empty:
+        duration:
+      medium:
+        pixel:
+        empty:
+        duration:
+      large:
+        pixel:
+        empty:
+        duration:
+      colossal:
+        pixel:
+        empty:
+        duration:
+      sacred:
+        pixel:
+        empty:
+        duration:
+      hallowed:
+        pixel:
+        empty:
+        duration:
+    utility:
+
+    unique:
+
+
+    flask1_offset_x: 0
+    flask2_offset_x: 46
+    flask3_offset_x: 92
+    flask4_offset_x: 138
+    flask5_offset_x: 184
 
 
 # User config -----------------
 # Hardware --------------------
-
-keyboard_event: "/dev/input/event0"
-screen_offset:
-  x: 1920
-  y: 0
+hardware:
+  keyboard_event: "/dev/input/event0"
+  screen_offset:
+    x: 0
+    y: 0
 
 # Key press data --------------
 
@@ -146,7 +161,7 @@ screen_offset:
 key_press:
   shortest: 54
   longest: 141
-  range: 5
+  range: 3
   std_dev: 21
   target: 110
 
@@ -155,27 +170,27 @@ flask1:
   enable: True
   type: *life_hallowed
   react: "Life"
-  x_offset: 1
+  always: False
 flask2:
   enable: True
   type: *life_hallowed
   react: "Life"
-  x_offset: 47
+  always: False
 flask3:
   enable: False
   type: *life_hallowed
   react: "Life"
-  x_offset: 93
+  always: False
 flask4:
   enable: False
   type: *life_hallowed
   react: "Life"
-  x_offset: 139
+  always: False
 flask5:
   enable: False
   type: *life_hallowed
   react: "Life"
-  x_offset: 185
+  always: False
 
 # Functions -------------------
 main:
@@ -186,11 +201,24 @@ main:
 
 debug:
   enable: False
+  life:
+    enable: True
+    pixel: True
+    rgb: True
+  mana:
+    enable: True
+    pixel: True
+    rgb: True
+  flask:
+    enable: True
+    pixel: True
+    rgb: True
   image_save:
     # This will MASSIVELY tank performance.
     enable: False
     location: "/tmp/poepyautopot"
 
+# Will eventually be moved to a testing suite
 test:
   enable: False
   key_press_test:
