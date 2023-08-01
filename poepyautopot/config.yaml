@@ -132,7 +132,10 @@ database:
         empty:
         duration:
     utility:
-
+      granite: &utility_granite
+        pixel: "(325, 1056)"
+        empty: "48, 49, 52"
+        duration: 4
     unique:
 
 
