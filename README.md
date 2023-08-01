@@ -10,7 +10,7 @@ I am not responsible for any bans or data loss as a result of using this. This w
 * Linux. <b>This does not currently support Windows or MacOS.</b>
 * Sudo. This requires access to a `/dev/input` device.
 * Python3. Duh.
-* Python packages: `evdev pillow pyyaml`
+* Python packages: `evdev pillow(-simd) pyyaml`
 * <b>Note:</b> The game must be in fullscreen at 1080p. Other methods might eventually be supported. You can always fix this yourself though.
 
 # Notes and tips
