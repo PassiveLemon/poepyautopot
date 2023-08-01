@@ -204,18 +204,9 @@ main:
 
 debug:
   enable: False
-  life:
-    enable: True
-    pixel: True
-    rgb: True
-  mana:
-    enable: True
-    pixel: True
-    rgb: True
-  flask:
-    enable: True
-    pixel: True
-    rgb: True
+  life: True
+  mana: True
+  flask: True
   image_save:
     # This will MASSIVELY tank performance.
     enable: False

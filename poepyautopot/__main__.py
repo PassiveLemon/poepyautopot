@@ -111,18 +111,12 @@ def config_init():
   main_mana_enable = main["mana"] #g
   main_flask_enable = main["flask"] #g
 
-  global debug_enable, debug_life_enable, debug_life_pixel, debug_life_rgb, debug_mana_enable, debug_mana_pixel, debug_mana_rgb, debug_flask_enable, debug_image_save_enable, debug_image_save_location
+  global debug_enable, debug_life_enable, debug_mana_enable, debug_flask_enable, debug_image_save_enable, debug_image_save_location
   debug = yaml_config["debug"]
   debug_enable = debug["enable"] #g
-  debug_life = debug["life"]
-  debug_life_enable = debug_life["enable"] #g
-  debug_life_pixel = debug_life["pixel"] #g
-  debug_life_rgb = debug_life["rgb"] #g
-  debug_mana = debug["mana"]
-  debug_mana_enable = debug_mana["enable"] #g
-  debug_mana_pixel = debug_mana["pixel"] #g
-  debug_mana_rgb = debug_mana["rgb"] #g
-  debug_flask_enable = debug["flask"]
+  debug_life_enable = debug["life"] #g
+  debug_mana_enable = debug["mana"] #g
+  debug_flask_enable = debug["flask"] #g
   debug_image_save = debug["image_save"]
   debug_image_save_enable = debug_image_save["enable"] #g
   debug_image_save_location = debug_image_save["location"] #g
