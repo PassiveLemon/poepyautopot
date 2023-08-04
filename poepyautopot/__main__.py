@@ -129,14 +129,20 @@ def config_init():
   key_press_test_delay = key_press_test["delay"] #g
   key_press_test_count = key_press_test["count"] #g
 
-  global life_need, mana_need, flask1_valid, flask2_valid, flask3_valid, flask4_valid, flask5_valid
+  global life_need, mana_need, flask1_valid, flask1_lock, flask2_valid, flask2_lock, flask3_valid, flask3_lock, flask4_valid, flask4_lock, flask5_valid, flask5_lock, flask_handoff
   life_need = False
   mana_need = False
   flask1_valid = True
+  flask1_lock = False
   flask2_valid = True
+  flask2_lock = False
   flask3_valid = True
+  flask3_lock = False
   flask4_valid = True
+  flask4_lock = False
   flask5_valid = True
+  flask5_lock = False
+  flask_handoff = False
 
 def key_press_init():
   global key_press_shortest_low, key_press_shortest_high, key_press_longest_low, key_press_longest_high
@@ -150,7 +156,8 @@ key_press_init()
 
 
 # Utility
-def key_press(num, wait):
+def key_press(num, wait, flasknum):
+  global flask1_lock, flask2_lock, flask3_lock, flask4_lock, flask5_lock
   # Bell curve to more closely group presses
   def bell_curve(min, max, sig, mu):
     while True:
@@ -173,7 +180,18 @@ def key_press(num, wait):
   ui.close()
   print(f"{num} ({random_key_press_sleep} ms)")
   print(f"waiting {wait} seconds")
-  time.sleep(wait / 1.25)
+  time.sleep(wait / 1.5)
+
+  if flasknum == "flask1":
+    flask1_lock = False
+  if flasknum == "flask2":
+    flask2_lock = False
+  if flasknum == "flask3":
+    flask3_lock = False
+  if flasknum == "flask4":
+    flask4_lock = False
+  if flasknum == "flask5":
+    flask5_lock = False
 
 def screen_capture():
   global screen_load
@@ -305,6 +323,7 @@ def flask_check():
 def main():
   i = 0
   while True:
+    global flask1_lock, flask2_lock, flask3_lock, flask4_lock, flask5_lock
     screen_capture()
     if main_life_enable == True:
       life_check()
@@ -316,32 +335,89 @@ def main():
     print(f"{i} life-{life_need} mana-{mana_need} 1-{flask1_valid} 2-{flask2_valid} 3-{flask3_valid} 4-{flask4_valid} 5-{flask5_valid}")
 
     if life_need == True:
-      if (flask1_enable == True and flask1_valid == True) and (flask1_react == "Life" or flask1_always):
-        key_press(e.KEY_1, flask1_duration)
-      elif (flask2_enable == True and flask2_valid == True) and (flask2_react == "Life" or flask2_always):
-        key_press(e.KEY_2, flask2_duration)
-      elif (flask3_enable == True and flask3_valid == True) and (flask3_react == "Life" or flask3_always):
-        key_press(e.KEY_3, flask3_duration)
-      elif (flask4_enable == True and flask4_valid == True) and (flask4_react == "Life" or flask4_always):
-        key_press(e.KEY_4, flask4_duration)
-      elif (flask5_enable == True and flask5_valid == True) and (flask5_react == "Life" or flask5_always):
-        key_press(e.KEY_5, flask5_duration)
+      if (flask1_enable == True and flask1_valid == True) and (flask1_react == "Life" or flask1_always == True):
+        flask1_press_life = multiprocessing.Process(target=key_press, args=[e.KEY_1, flask1_duration, "flask1"])
+        if flask1_lock == False:
+          flask1_press_life.start()
+        flask1_lock = True
+        flask_handoff = False
       else:
+        flask_handoff = True
+      if (flask2_enable == True and flask2_valid == True) and ((flask2_react == "Life" and flask_handoff == True) or flask2_always == True):
+        flask2_press_life = multiprocessing.Process(target=key_press, args=[e.KEY_2, flask2_duration, "flask2"])
+        if flask2_lock == False:
+          flask2_press_life.start()
+        flask2_lock = True
+        flask_handoff = False
+      else:
+        flask_handoff = True
+      if (flask3_enable == True and flask3_valid == True) and ((flask3_react == "Life" and flask_handoff == True) or flask3_always == True):
+        flask3_press_life = multiprocessing.Process(target=key_press, args=[e.KEY_3, flask3_duration, "flask3"])
+        if flask3_lock == False:
+          flask3_press_life.start()
+        flask3_lock = True
+        flask_handoff = False
+      else:
+        flask_handoff = True
+      if (flask4_enable == True and flask4_valid == True) and ((flask4_react == "Life" and flask_handoff == True) or flask4_always == True):
+        flask4_press_life = multiprocessing.Process(target=key_press, args=[e.KEY_4, flask4_duration, "flask4"])
+        if flask4_lock == False:
+          flask4_press_life.start()
+        flask4_lock = True
+        flask_handoff = False
+      else:
+        flask_handoff = True
+      if (flask5_enable == True and flask5_valid == True) and ((flask5_react == "Life" and flask_handoff == True) or flask5_always == True):
+        flask5_press_life = multiprocessing.Process(target=key_press, args=[e.KEY_5, flask5_duration, "flask5"])
+        if flask5_lock == False:
+          flask5_press_life.start()
+        flask5_lock = True
+        flask_handoff = False
+      else:
+        flask_handoff = True
+      if flask_handoff == True:
         print("Life tick not available")
+      flask_handoff = False
 
     if mana_need == True:
-      if (flask1_valid == True and flask1_enable == True) and (flask1_react == "Mana" or flask1_always):
-        key_press(e.KEY_1, flask1_duration)
-      elif (flask2_valid == True and flask2_enable == True) and (flask2_react == "Mana" or flask2_always):
-        key_press(e.KEY_2, flask2_duration)
-      elif (flask3_valid == True and flask3_enable == True) and (flask3_react == "Mana" or flask3_always):
-        key_press(e.KEY_3, flask3_duration)
-      elif (flask4_valid == True and flask4_enable == True) and (flask4_react == "Mana" or flask4_always):
-        key_press(e.KEY_4, flask4_duration)
-      elif (flask5_valid == True and flask5_enable == True) and (flask5_react == "Mana" or flask5_always):
-        key_press(e.KEY_5, flask5_duration)
+      if (flask1_valid == True and flask1_enable == True and flask1_lock == False) and (flask1_react == "Mana" or flask1_always == True):
+        flask1_press_mana = multiprocessing.Process(target=key_press, args=[e.KEY_1, flask1_duration, "flask1"])
+        flask1_press_mana.start()
+        flask1_lock = True
+        flask_handoff = False
       else:
+        flask_handoff = True
+      if (flask2_valid == True and flask2_enable == True and flask2_lock == False) and ((flask2_react == "Mana" and flask_handoff == True) or flask2_always == True):
+        flask2_press_mana = multiprocessing.Process(target=key_press, args=[e.KEY_2, flask2_duration, "flask2"])
+        flask2_press_mana.start()
+        flask2_lock = True
+        flask_handoff = False
+      else:
+        flask_handoff = True
+      if (flask3_valid == True and flask3_enable == True and flask3_lock == False) and ((flask3_react == "Mana" and flask_handoff == True) or flask3_always == True):
+        flask3_press_mana = multiprocessing.Process(target=key_press, args=[e.KEY_3, flask3_duration, "flask3"])
+        flask3_press_mana.start()
+        flask3_lock = True
+        flask_handoff = False
+      else:
+        flask_handoff = True
+      if (flask4_valid == True and flask4_enable == True and flask4_lock == False) and ((flask4_react == "Mana" and flask_handoff == True) or flask4_always == True):
+        flask4_press_mana = multiprocessing.Process(target=key_press, args=[e.KEY_4, flask4_duration, "flask4"])
+        flask4_press_mana.start()
+        flask4_lock = True
+        flask_handoff = False
+      else:
+        flask_handoff = True
+      if (flask5_valid == True and flask5_enable == True and flask5_lock == False) and ((flask5_react == "Mana" and flask_handoff == True) or flask5_always == True):
+        flask5_press_mana = multiprocessing.Process(target=key_press, args=[e.KEY_5, flask5_duration, "flask5"])
+        flask5_press_mana.start()
+        flask5_lock = True
+        flask_handoff = False
+      else:
+        flask_handoff = True
+      if flask_handoff == True:
         print("Mana tick not available")
+      flask_handoff = False
 
     i += 1
 
@@ -370,3 +446,4 @@ def test():
 
 if test_enable == True:
   test()
+
