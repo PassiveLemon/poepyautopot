@@ -22,6 +22,8 @@ I recommend to run PoE at 60 FPS. Running it too high will cause the game to get
 
 Currently, pixel values only detect if something is empty. This works easily but it not the most customizable. This may be improved in the future. </br>
 
+Flasks do have a lock system but its only for itself. It does not currently detect the lock of other flasks. This means that it may use other life/mana flasks when it just used on in that check. I am working on this.
+
 # Usage
 Clone the repo, edit the `config.yaml`, run `sudo python3 __main__.py -f <path to config file>`. </br>
 
@@ -33,7 +35,6 @@ You can run the `kp_calc.py` script in utils to get a calculated data set for yo
 If it doesn't seem to work properly, please make sure your configurations are correctly set. As a last resort, open an issue on the GitHub.
 ## Flask database
 This is still a WIP. </br>
-Duration is still an experimental variable. </br>
 This is the database for each flask type and the pixel to detect in the leftmost slot. (This gets adjusted based on the slot). </br>
 It is not recommended to change anything unless you know what you are doing. </br>
 
@@ -61,6 +62,7 @@ These will use my data by default. </br>
 `main: life:` Boolean to enable the life checking. Disable if you don't want your life flasks automated. </br>
 `main: mana:` Same thing as `main: life:`, just for mana. </br>
 `main: flasks:` Boolean to enable flask automation. You should probably also keep this enabled. Why else would you be using this script? </br>
+`main: menus:` Boolean to enable menu detection. I recommend to leave this on. It will prevent unnecessary key presses. </br>
 
 `debug: enable:` Boolean to enable debugging. This just shows some extra details while running. May impact performance. Recommended to keep this off. </br>
 `debug: life: enable:` Boolean to enable life specific debugging. </br>
@@ -69,6 +71,7 @@ These will use my data by default. </br>
 `debug: mana:` Exact same as life. </br>
 `debug: flask:` Exact same as life. </br>
 * Note: The flasks have x offsets! What it actually detects is offset from what it expected based on the slot its in. Don't get confused by this. </br>
+`debug: menu:` Exact same as life. </br>
 `debug: image_save: enable:` Boolean to enable the saving of images while running. This will MASSIVELY tank performance so its HIGHLY recommend to keep this off. </br>
 `debug: image_save: location:` The place you want to save the images to. </br>
 
@@ -78,3 +81,4 @@ These will use my data by default. </br>
 `test: key_press_test: count:` The amount of key_presses to simulate. </br>
 
 Of course you can always edit the code itself to fit some of your needs. It's still very much a WIP so more is to come. There is still plenty of room for improvement and features. </br>
+
