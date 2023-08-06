@@ -63,6 +63,7 @@ These will use my data by default. </br>
 `main: mana:` Same thing as `main: life:`, just for mana. </br>
 `main: flasks:` Boolean to enable flask automation. You should probably also keep this enabled. Why else would you be using this script? </br>
 `main: menus:` Boolean to enable menu detection. I recommend to leave this on. It will prevent unnecessary key presses. </br>
+`main: rate:` Set the interval of each check. Setting it to 100 will check every 100 ms. Set it to 0 to disable the limit. </br>
 
 `debug: enable:` Boolean to enable debugging. This just shows some extra details while running. May impact performance. Recommended to keep this off. </br>
 `debug: life: enable:` Boolean to enable life specific debugging. </br>
