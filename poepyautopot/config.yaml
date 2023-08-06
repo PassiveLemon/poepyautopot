@@ -223,6 +223,7 @@ main:
   mana: True
   flask: True
   menu: True
+  rate: 0
 
 debug:
   enable: False

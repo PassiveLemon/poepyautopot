@@ -130,13 +130,14 @@ def config_init():
   flask5_react = flask1["react"] #g
   flask5_always = flask1["always"] #g
 
-  global main_enable, main_life_enable, main_mana_enable, main_flask_enable, main_menu_enable
+  global main_enable, main_life_enable, main_mana_enable, main_flask_enable, main_menu_enable, main_rate
   main = yaml_config["main"]
   main_enable = main["enable"] #g
   main_life_enable = main["life"] #g
   main_mana_enable = main["mana"] #g
   main_flask_enable = main["flask"] #g
   main_menu_enable = main["menu"] #g
+  main_rate = main["rate"]
 
   global debug_enable, debug_life_enable, debug_mana_enable, debug_flask_enable, debug_menu_enable, debug_image_save_enable, debug_image_save_location
   debug = yaml_config["debug"]
@@ -497,6 +498,7 @@ def main():
   flask_handoff = False
   i = 0
   while True:
+    start = time.time()
     global flask1_lock, flask2_lock, flask3_lock, flask4_lock, flask5_lock
     screen_capture()
 
@@ -617,6 +619,10 @@ def main():
       flask_handoff = False
     else:
       print(f"{i} escape-{escape_inside} loading-{loading_inside} death-{death_inside}")
+
+    time_taken = round(time.time() - start, 3) * 1000
+    if time_taken < main_rate:
+      time.sleep((main_rate / 1000) - (time_taken / 1000))
 
     i += 1
 
