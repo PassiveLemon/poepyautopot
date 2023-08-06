@@ -136,14 +136,35 @@ database:
         pixel: "(325, 1056)"
         empty: "48, 49, 52"
         duration: 4
-    unique:
-
+    #unique: WIP
 
     flask1_offset_x: 0
     flask2_offset_x: 46
     flask3_offset_x: 92
     flask4_offset_x: 138
     flask5_offset_x: 184
+  menus:
+    escape:
+      pixel1: "(1116, 301)"
+      color1: "25, 19, 18"
+      pixel2: "(1085, 485)"
+      color2: "78, 30, 5"
+      pixel3: "(835, 467)"
+      color3: "254, 192, 118"
+    loading:
+      pixel1: "(547, 991)"
+      color1: "63, 68, 44"
+      pixel2: "(370, 886)"
+      color2: "102, 77, 31"
+      pixel3: "(1453, 933)"
+      color3: "30, 8, 8"
+    death:
+      pixel1: "(1016, 230)"
+      color1: "135, 85, 22"
+      pixel2: "(1072, 313)"
+      color2: "99, 43, 1"
+      pixel3: "(805, 338)"
+      color3: "194, 189, 188"
 
 
 # User config -----------------
@@ -199,14 +220,16 @@ flask5:
 main:
   enable: True
   life: True
-  mana: False
+  mana: True
   flask: True
+  menu: True
 
 debug:
   enable: False
   life: True
   mana: True
   flask: True
+  menu: True
   image_save:
     # This will MASSIVELY tank performance.
     enable: False
@@ -219,3 +242,4 @@ test:
     enable: False
     delay: 3
     count: 20
+
