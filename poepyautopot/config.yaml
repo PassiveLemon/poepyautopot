@@ -10,44 +10,44 @@ database:
   flask:
     life:
       small: &life_small
-        pixel:
-        empty:
+        pixel: "(330, 1055)"
+        empty: "14, 15, 15"
         duration: 3
       medium: &life_mediuum
-        pixel:
-        empty:
+        pixel: "(334, 1055)"
+        empty: "17, 14, 16"
         duration: 3.5
       large: &life_large
-        pixel:
-        empty:
+        pixel: "(333, 1055)"
+        empty: "17, 17, 16"
         duration: 3.5
       greater: &life_greater
-        pixel:
-        empty:
+        pixel: "(327, 1055)"
+        empty: "19, 18, 18"
         duration: 3.5
       grand: &life_grand
-        pixel:
-        empty:
+        pixel: "(331, 1055)"
+        empty: "11, 12, 13"
         duration: 3
       giant: &life_giant
-        pixel:
-        empty:
+        pixel: "(325, 1055)"
+        empty: "39, 38, 27"
         duration: 4
       colossal: &life_colossal
-        pixel:
-        empty:
+        pixel: "(329, 1055)"
+        empty: "20, 22, 19"
         duration: 3.5
       sacred: &life_sacred
-        pixel:
-        empty:
+        pixel: "(333, 1055)"
+        empty: "18, 18, 18"
         duration: 3
       hallowed: &life_hallowed
-        pixel: "(331, 1056)"
-        empty: "37, 23, 19"
+        pixel: "(335, 1055)"
+        empty: "62, 38, 33"
         duration: 4
       sanctified: &life_sanctified
-        pixel: "(320, 1054)"
-        empty: "47, 44, 36"
+        pixel: "(334, 1055)"
+        empty: "44, 37, 31"
         duration: 1.5
       divine: &life_divine
         pixel:
@@ -59,44 +59,44 @@ database:
         duration:
     mana:
       small: &mana_small
-        pixel:
-        empty:
+        pixel: "(330, 1055)"
+        empty: "17, 18, 18"
         duration: 3
       medium: &mana_medium
-        pixel:
-        empty:
+        pixel: "(334, 1055)"
+        empty: "21, 22, 23"
         duration: 3.5
       large: &mana_large
-        pixel:
-        empty:
+        pixel: "(328, 1055)"
+        empty: "15, 15, 17"
         duration: 4
       greater: &mana_greater
-        pixel:
-        empty:
+        pixel: "(327, 1055)"
+        empty: "13, 21, 26"
         duration: 4
       grand: &mana_grand
-        pixel:
-        empty:
+        pixel: "(331, 1055)"
+        empty: "25, 24, 29"
         duration: 4.5
       giant: &mana_giant
-        pixel:
-        empty:
+        pixel: "(330, 1055)"
+        empty: "9, 6, 8"
         duration: 5
       colossal: &mana_colossal
-        pixel:
-        empty:
+        pixel: "(329, 1055)"
+        empty: "22, 22, 22"
         duration: 5
       sacred: &mana_sacred
-        pixel:
-        empty:
+        pixel: "(328, 1055)"
+        empty: "25, 24, 25"
         duration: 5.5
       hallowed: &mana_hallowed
-        pixel:
-        empty:
+        pixel: "(327, 1055)"
+        empty: "19, 33, 34"
         duration: 6
       sanctified: &mana_sanctified
-        pixel:
-        empty:
+        pixel: "(328, 1052)"
+        empty: "21, 22, 22"
         duration: 6.5
       divine: &mana_divine
         pixel:
@@ -107,37 +107,80 @@ database:
         empty:
         duration:
     hybrid:
-      small:
+      small: &hybrid_small
+        pixel: 
+        empty:
+        duration:
+      medium: &hybrid_medium
+        pixel: "(330, 1055)"
+        empty: "15, 13, 17"
+        duration: 5
+      large: &hybrid_large
         pixel:
         empty:
         duration:
-      medium:
+      colossal: &hybrid_colossal
+        pixel: "(329, 1055)"
+        empty: "21, 21, 20"
+        duration: 5
+      sacred: &hybrid_sacred
         pixel:
         empty:
         duration:
-      large:
-        pixel:
-        empty:
-        duration:
-      colossal:
-        pixel:
-        empty:
-        duration:
-      sacred:
-        pixel:
-        empty:
-        duration:
-      hallowed:
+      hallowed: &hybrid_hallowed
         pixel:
         empty:
         duration:
     utility:
+      amethyst: &utility_amethyst
+        pixel: "(325, 1056)"
+        empty: "34, 34, 36"
+        duration: 6.5
+      aquamarine: &utility_aquamarine
+        pixel: "(325, 1056)"
+        empty: "34, 34, 36"
+        duration: 8
+      basalt: &utility_basalt
+        pixel: "(325, 1056)"
+        empty: "34, 34, 36"
+        duration: 8
+      bismuth: &utility_bismuth
+        pixel: "(325, 1056)"
+        empty: "34, 34, 36"
+        duration: 8.5
+      diamond: &utility_diamond
+        pixel: "(325, 1056)"
+        empty: "34, 34, 36"
+        duration: 8
       granite: &utility_granite
         pixel: "(325, 1056)"
-        empty: "48, 49, 52"
+        empty: "34, 34, 36"
         duration: 4
-    #unique: WIP
-
+      jade: &utility_jade
+        pixel: "(325, 1056)"
+        empty: "34, 34, 36"
+        duration: 6
+      quicksilver: &utility_quicksilver
+        pixel: "(325, 1056)"
+        empty: "34, 34, 36"
+        duration: 6
+      ruby: &utility_ruby
+        pixel: "(325, 1056)"
+        empty: "34, 34, 36"
+        duration: 8
+      stibnite: &utility_stibnite
+        pixel: "(325, 1056)"
+        empty: "34, 34, 36"
+        duration: 5
+      topaz: &utility_topaz
+        pixel: "(325, 1056)"
+        empty: "34, 34, 36"
+        duration: 8
+    unique:
+      the_sorrow_of_the_divine: &utility_the_sorrow_of_the_divine
+      pixel: "(329, 1058)"
+      empty: "13, 13, 15"
+      duration: 5.5
     flask1_offset_x: 0
     flask2_offset_x: 46
     flask3_offset_x: 92
@@ -176,8 +219,6 @@ hardware:
     y: 0
 
 # Key press data --------------
-
-# WRITE THESE AS SECONDS! They will get converted to milliseconds.
 
 # My shortest was 54 ms, longest was 141 ms.
 # My standard deviation was 21 ms.
@@ -220,7 +261,7 @@ flask5:
 main:
   enable: True
   life: True
-  mana: True
+  mana: False
   flask: True
   menu: True
   rate: 0
