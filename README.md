@@ -1,10 +1,10 @@
 # poepyautopot
-A Python based Autopot script for Path of Exile
+A Python based Autopot script for Path of Exile </br>
 
-This will constantly check your life, mana, and flasks. If your life/mana gets too low, it will determine which flasks it can use and will press that number through your keyboard's input driver.
+This will constantly check your life, mana, and flasks. If your life/mana gets too low, it will determine which flasks it can use and will press that number through your keyboard's input driver. </br>
 
 ## Disclaimer
-I am not responsible for any bans or data loss as a result of using this. This was a project for me to learn Python. If you are worried about getting banned, don't use it and be a legitimate player :)
+I am not responsible for any bans or data loss as a result of using this. This was a project for me to learn Python. If you are worried about getting banned, don't use it and be a legitimate player :) </br>
 
 # Dependencies
 * Linux. <b>This does not currently support Windows or MacOS.</b>
@@ -22,17 +22,18 @@ I recommend to run PoE at 60 FPS. Running it too high will cause the game to get
 
 Currently, pixel values only detect if something is empty. This works easily but it not the most customizable. This may be improved in the future. </br>
 
-Flasks do have a lock system but its only for itself. It does not currently detect the lock of other flasks. This means that it may use other life/mana flasks when it just used on in that check. I am working on this.
+Flasks do have a lock system but its only for itself. It does not currently detect the lock of other flasks. This means that it may use other life/mana flasks when it just used on in that check. I am working on this. </br>
 
 # Usage
-Clone the repo, edit the `config.yaml`, run `sudo python3 __main__.py -f <path to config file>`. </br>
+Clone the repo, edit the `config.yaml`, run `sudo python3 __main__.py -f <path to config file>`. Please read the configuration below. It will not work out of the box. </br>
 
-`-f | --file:` The location of your config.yaml. You can use relative paths like ~ . Will default to the included one if not set. Ex: `~/.config/poepyautopot/config.yaml`
+`-f | --file:` The location of your config.yaml. You can use relative paths like ~ . Will default to the included one if not set. Ex: `~/.config/poepyautopot/config.yaml` </br>
 
 You can run the `kp_calc.py` script in utils to get a calculated data set for your key presses to use in the config. Just run it and follow the prompt. You can use any numbers you want, I just recommend using actual data as it represents the physical capabilities of your keyboard and should theoretically make your key presses look more human. If your keyboard key presses physically cannot be shorter than 28 ms, you shouldn't be emulating a 2 ms key press. </br>
 
 # Configuration (config.yaml)
-If it doesn't seem to work properly, please make sure your configurations are correctly set. As a last resort, open an issue on the GitHub.
+This will not work out of the box. You will need to configure it yourself. Go into the config.yaml, past the database, and edit the appropriate values under the user config section. Details are below. </br>
+If it doesn't seem to work properly, please make sure your configurations are correctly set. As a last resort, open an issue on the GitHub. </br>
 ## Flask database
 This is still a WIP. </br>
 This is the database for each flask type and the pixel to detect in the leftmost slot. (This gets adjusted based on the slot). </br>
@@ -43,7 +44,7 @@ It is not recommended to change anything unless you know what you are doing. </b
 `keyboard_event:` The `/dev/input/event#` that applies to your keyboard. </br>
 `screen_offset:` The space of screen above and to the left of the game window. This assumes the game is fullscreen at 1080p! Ex: If you have two horzontal 1080p monitors, and you run the game on the right one, set the X to 1920 and Y to 0. If you have 2 vertical 1080p monitors and you run the game on the bottom one, set the X to 0 and Y to 1080. </br>
 
-#### WRITE THESE IN SECONDS! They will get converted to milliseconds. </br>
+#### Write any time value as a whole number. Ex: for 100 milliseconds, just write 100. It gets converted automatically. </br>
 These will use my data by default. </br>
 `key_press: shortest:` The lowest/shortest value from your data set. </br>
 `key_press: longest:` The highest/longest value from your data set. </br>
