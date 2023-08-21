@@ -26,7 +26,7 @@ def on_key_release(key):
 
   return False
 
-i = 100
+i = 50
 print(f"Please press 1 number from 1-5 {i} times. Make sure to not press to quickly.")
 while i > 0:
   with keyboard.Listener(on_press = on_key_press) as press_listener:

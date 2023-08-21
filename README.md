@@ -29,6 +29,11 @@ Clone the repo, edit the `config.yaml`, run `sudo python3 __main__.py -f <path t
 
 `-f | --file:` The location of your config.yaml. You can use relative paths like ~ . Will default to the included one if not set. Ex: `~/.config/poepyautopot/config.yaml` </br>
 
+The colors of the outputs in the terminal have meaning:
+* For meter values like life and mana, if it is needed, it will be red. Otherwise, it's gree.
+* For flasks, if it's valid and not locked, it's green. If it's valid but locked, it will be yellow. If it's not valid, it will be red.
+* For menus, it will be green. </br>
+
 You can run the `kp_calc.py` script in utils to get a calculated data set for your key presses to use in the config. Just run it and follow the prompt. You can use any numbers you want, I just recommend using actual data as it represents the physical capabilities of your keyboard and should theoretically make your key presses look more human. If your keyboard key presses physically cannot be shorter than 28 ms, you shouldn't be emulating a 2 ms key press. </br>
 
 # Configuration (config.yaml)

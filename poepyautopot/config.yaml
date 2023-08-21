@@ -232,12 +232,12 @@ key_press:
 
 # Flasks ----------------------
 flask1:
-  enable: True
+  enable: False
   type: *life_hallowed
   react: "Life"
   always: False
 flask2:
-  enable: True
+  enable: False
   type: *life_hallowed
   react: "Life"
   always: False
@@ -261,16 +261,16 @@ flask5:
 main:
   enable: True
   life: True
-  mana: False
+  mana: True
   menu: True
-  rate: 0
+  rate: 16.66
 
 debug:
   enable: False
-  life: True
-  mana: True
-  flask: True
-  menu: True
+  life: False
+  mana: False
+  flask: False
+  menu: False
   image_save:
     # This will MASSIVELY tank performance.
     enable: False
