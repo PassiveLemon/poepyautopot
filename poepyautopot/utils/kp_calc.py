@@ -11,7 +11,7 @@ with open("key_press_data.txt", "w") as file:
 
 def write_to_file(key, time_taken):
   with open("key_press_data.txt", "a") as file:
-    file.write(f"{key} - {time_taken:.1f} ms\n")
+    file.write(f"{time_taken:.1f} \n")
 
 def on_key_press(key):
   global t
@@ -26,7 +26,7 @@ def on_key_release(key):
 
   return False
 
-i = 50
+i = 100
 print(f"Please press 1 number from 1-5 {i} times. Make sure to not press to quickly.")
 while i > 0:
   with keyboard.Listener(on_press = on_key_press) as press_listener:

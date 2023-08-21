@@ -69,7 +69,6 @@ def key_press(num, wait, flasknum):
         return value
 
   # Variate key press length with random lows and highs, std dev, and target.
-  # From testing and visualizing the data, it doesn't really look like how the human inputs would. Doing it this way gets it to look a little better sometimes?
   random_range_low = random.randint(config.key_press_shortest_low, config.key_press_shortest_high)
   random_range_high = random.randint(config.key_press_longest_low, config.key_press_longest_high)
   random_key_press_sleep = bell_curve(random_range_low, random_range_high, config.key_press_std_dev, config.key_press_target)
@@ -103,7 +102,7 @@ def screen_capture():
   screen_load = screen_capture.load()
 
   if config.debug_enable == True and config.debug_image_save_enable == True:
-    screen_capture.save(debug_image_save_location, "/screen.png")
+    screen_capture.save("./screen.png")
 
 def life_check():
   global life
@@ -383,7 +382,11 @@ def death_check():
 
 # Main
 def main():
-  test_time = time.time()
+  global life_need, mana_need
+  global inside_menu
+  life_need = False
+  mana_need = False
+  inside_menu = False
   i = 0
   while True:
     time_start = time.time()
@@ -398,128 +401,123 @@ def main():
       life_check()
     if config.main_mana_enable == True:
       mana_check()
+    if config.main_flask_enable == True:
+      #flask_check()
+      flask_check_ind(flask1)
+      flask_check_ind(flask2)
 
     print_list = []
     i += 1
     print_list.append(f"{Fore.CYAN}{i}{Style.RESET_ALL}")
 
     if escape.inside == True or loading.inside == True or death.inside == True:
-      dummy = True
+      extra = True
       #print(f"{Fore.CYAN}{i}{Style.RESET_ALL} escape-{escape_inside} loading-{loading_inside} death-{death_inside}")
     else:
-      life_handoff = False
-      mana_handoff = False
-      if flask1.enable == True:
-        flask_check_ind(flask1)
-        flask1_press = threading.Thread(target=key_press, args=[e.KEY_1, flask1.duration, "flask1"])
-        if life.need == True:
-          if flask1.valid == True and (flask1.react == "Life" or flask1.always == True):
-            if flask1.lock == False:
-              flask1.lock = True
-              flask1_press.start()
-            life_handoff = False
-          else:
-            life_handoff = True
-        if mana.need == True:
-          if flask1.valid == True and (flask1.react == "Mana" or flask1.always == True):
-            if flask1.lock == False:
-              flask1.lock = True
-              flask1_press.start()
-            mana_handoff = False
-          else:
-            mana_handoff = True
+      #print(f"life-{life_need} mana-{mana_need} 1-{flask1_valid} 2-{flask2_valid} 3-{flask3_valid} 4-{flask4_valid} 5-{flask5_valid}")
+      flask_handoff = False
+      if life.need == True:
+        if (flask1.enable == True and flask1.valid == True) and (flask1.react == "Life" or flask1.always == True):
+          flask1_press_life = threading.Thread(target=key_press, args=[e.KEY_1, flask1.duration, "flask1"])
+          if flask1.lock == False:
+            flask1.lock = True
+            flask1_press_life.start()
+          flask_handoff = False
+        else:
+          flask_handoff = True
 
-      if flask2.enable == True:
-        flask_check_ind(flask2)
-        flask2_press = threading.Thread(target=key_press, args=[e.KEY_2, flask2.duration, "flask2"])
-        if life.need == True:
-          if flask2.valid == True and ((flask2.react == "Life" and life_handoff == True) or flask2.always == True):
-            if flask2.lock == False:
-              flask2.lock = True
-              flask2_press.start()
-            life_handoff = False
-          else:
-            life_handoff = True
-        if mana.need == True:
-          if flask2.valid == True and ((flask2.react == "Mana" and mana_handoff == True) or flask2.always == True):
-            if flask2.lock == False:
-              flask2.lock = True
-              flask2_press.start()
-            mana_handoff = False
-          else:
-            mana_handoff = True
+        if (flask2.enable == True and flask2.valid == True) and ((flask2.react == "Life" and flask_handoff == True) or flask2.always == True):
+          flask2_press_life = threading.Thread(target=key_press, args=[e.KEY_2, flask2.duration, "flask2"])
+          if flask2.lock == False:
+            flask2.lock = True
+            flask2_press_life.start()
+          flask_handoff = False
+        else:
+          flask_handoff = True
 
-      if flask3.enable == True:
-        flask_check_ind(flask3)
-        flask3_press = threading.Thread(target=key_press, args=[e.KEY_3, flask3.duration, "flask3"])
-        if life.need == True:
-          if flask3.valid == True and ((flask3.react == "Life" and life_handoff == True) or flask3.always == True):
-            if flask3.lock == False:
-              flask3.lock = True
-              flask3_press.start()
-            life_handoff = False
-          else:
-            life_handoff = True
-        if mana.need == True:
-          if flask3.valid == True and ((flask3.react == "Mana" and mana_handoff == True) or flask3.always == True):
-            if flask3.lock == False:
-              flask3.lock = True
-              flask3_press.start()
-            mana_handoff = False
-          else:
-            mana_handoff = True
+        if (flask3.enable == True and flask3.valid == True) and ((flask3.react == "Life" and flask_handoff == True) or flask3.always == True):
+          flask3_press_life = threading.Thread(target=key_press, args=[e.KEY_3, flask3.duration, "flask3"])
+          if flask3.lock == False:
+            flask3.lock = True
+            flask3_press_life.start()
+          flask_handoff = False
+        else:
+          flask_handoff = True
 
-      if flask4.enable == True:
-        flask_check_ind(flask4)
-        flask4_press = threading.Thread(target=key_press, args=[e.KEY_4, flask4.duration, "flask4"])
-        if life.need == True:
-          if flask4.valid == True and ((flask4.react == "Life" and life_handoff == True) or flask4.always == True):
-            if flask4.lock == False:
-              flask4.lock = True
-              flask4_press.start()
-            life_handoff = False
-          else:
-            life_handoff = True
-        if mana.need == True:
-          if flask4.valid == True and ((flask4.react == "Mana" and mana_handoff == True) or flask4.always == True):
-            if flask4.lock == False:
-              flask4.lock = True
-              flask4_press.start()
-            mana_handoff = False
-          else:
-            mana_handoff = True
+        if (flask4.enable == True and flask4.valid == True) and ((flask4.react == "Life" and flask_handoff == True) or flask4.always == True):
+          flask4_press_life = threading.Thread(target=key_press, args=[e.KEY_4, flask4.duration, "flask4"])
+          if flask4.lock == False:
+            flask4.lock = True
+            flask4_press_life.start()
+          flask_handoff = False
+        else:
+          flask_handoff = True
 
-      if flask5.enable == True:
-        flask_check_ind(flask5)
-        flask5_press = threading.Thread(target=key_press, args=[e.KEY_5, flask5.duration, "flask5"])
-        if life.need == True:
-          if flask5.valid == True and ((flask5.react == "Life" and life_handoff == True) or flask5.always == True):
-            if flask5.lock == False:
-              flask5.lock = True
-              flask5_press.start()
-            life_handoff = False
-          else:
-            life_handoff = True
-        if mana.need == True:
-          if flask5.valid == True and ((flask5.react == "Mana" and mana_handoff == True) or flask5.always == True):
-            if flask5.lock == False:
-              flask5.lock = True
-              flask5_press.start()
-            mana_handoff = False
-          else:
-            mana_handoff = True
+        if (flask5.enable == True and flask5.valid == True) and ((flask5.react == "Life" and flask_handoff == True) or flask5.always == True):
+          flask5_press_life = threading.Thread(target=key_press, args=[e.KEY_5, flask5.duration, "flask5"])
+          if flask5.lock == False:
+            flask5.lock = True
+            flask5_press_life.start()
+          flask_handoff = False
 
-    @@NOTE TO SELF: TRYING TO FIX THIS PRINT PARSER. CHECK THE GITHUB PROJECT FOR DETAILS IF YOU FORGOT IDIOT.
+      flask_handoff = False
+      if mana_need == True:
+        if (flask1_enable == True and flask1_valid == True) and (flask1_react == "mana" or flask1_always == True):
+          flask1_press_mana = threading.Thread(target=key_press, args=[e.KEY_1, flask1_duration, "flask1"])
+          if flask1_lock == False:
+            flask1_lock = True
+            flask1_press_mana.start()
+          flask_handoff = False
+        else:
+          flask_handoff = True
 
-    flasks_list = [flask1, flask2, flask3, flask4, flask5]
-    for flask in flasks_list:
-      if flask.enable == True:
-        if flask.valid == True and flask.lock == False:
-          print_list.append(f"{Fore.GREEN}{flask}{Style.RESET_ALL}")
-        elif flask.valid == True and flask.lock == True:
-          print_list.append(f"{Fore.YELLOW}{flask}{Style.RESET_ALL}")
-        elif flask.valid == False:
-          print_list.append(f"{Fore.RED}{flask}{Style.RESET_ALL}")
+        if (flask2_enable == True and flask2_valid == True) and ((flask2_react == "mana" and flask_handoff == True) or flask2_always == True):
+          flask2_press_mana = threading.Thread(target=key_press, args=[e.KEY_2, flask2_duration, "flask2"])
+          if flask2_lock == False:
+            flask2_lock = True
+            flask2_press_mana.start()
+          flask_handoff = False
+        else:
+          flask_handoff = True
+
+        if (flask3_enable == True and flask3_valid == True) and ((flask3_react == "mana" and flask_handoff == True) or flask3_always == True):
+          flask3_press_mana = threading.Thread(target=key_press, args=[e.KEY_3, flask3_duration, "flask3"])
+          if flask3_lock == False:
+            flask3_lock = True
+            flask3_press_mana.start()
+          flask_handoff = False
+        else:
+          flask_handoff = True
+
+        if (flask4_enable == True and flask4_valid == True) and ((flask4_react == "mana" and flask_handoff == True) or flask4_always == True):
+          flask4_press_mana = threading.Thread(target=key_press, args=[e.KEY_4, flask4_duration, "flask4"])
+          if flask4_lock == False:
+            flask4_lock = True
+            flask4_press_mana.start()
+          flask_handoff = False
+        else:
+          flask_handoff = True
+
+        if (flask5_enable == True and flask5_valid == True) and ((flask5_react == "mana" and flask_handoff == True) or flask5_always == True):
+          flask5_press_mana = threading.Thread(target=key_press, args=[e.KEY_5, flask5_duration, "flask5"])
+          if flask5_lock == False:
+            flask5_lock = True
+            flask5_press_mana.start()
+          flask_handoff = False
+
+    if flask1.valid == True and flask1.lock == False:
+      print_list.append(f"{Fore.GREEN}flask1{Style.RESET_ALL}")
+    elif flask1.valid == True and flask1.lock == True:
+      print_list.append(f"{Fore.YELLOW}flask1{Style.RESET_ALL}")
+    elif flask1.valid == False:
+      print_list.append(f"{Fore.RED}flask1{Style.RESET_ALL}")
+
+    if flask2.valid == True and flask2.lock == False:
+      print_list.append(f"{Fore.GREEN}flask2{Style.RESET_ALL}")
+    elif flask2.valid == True and flask2.lock == True:
+      print_list.append(f"{Fore.YELLOW}flask2{Style.RESET_ALL}")
+    elif flask2.valid == False:
+      print_list.append(f"{Fore.RED}flask2{Style.RESET_ALL}")
 
     time_taken = round(time.time() - time_start, 3) * 1000
     if time_taken < config.main_rate:
@@ -528,11 +526,6 @@ def main():
     for item in print_list:
       print(item, end=' ')
     print('')
-
-    if i == 60:
-      final_time = round(time.time() - test_time, 3)
-      print(final_time)
-      exit()
 
 if config.main_enable == True:
   main()

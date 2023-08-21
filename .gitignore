@@ -1,4 +1,3 @@
 __pycache__/
 key_press_data.txt
-tests/images/*
-.screenshot*
+tests/

@@ -262,7 +262,6 @@ main:
   enable: True
   life: True
   mana: False
-  flask: True
   menu: True
   rate: 0
 
@@ -276,12 +275,4 @@ debug:
     # This will MASSIVELY tank performance.
     enable: False
     location: "/tmp/poepyautopot"
-
-# Will eventually be moved to a testing suite
-test:
-  enable: False
-  key_press_test:
-    enable: False
-    delay: 3
-    count: 20
 

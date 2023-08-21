@@ -10,19 +10,19 @@ I am not responsible for any bans or data loss as a result of using this. This w
 * Linux. <b>This does not currently support Windows or MacOS.</b>
 * Sudo. This requires access to a `/dev/input` device.
 * Python3. Duh.
-* Python packages: `evdev pillow(-simd) pyyaml`
+* Python packages: `colorama evdev pillow pyyaml (pynput for kp_calc.py)`
 * <b>Note:</b> The game must be in fullscreen at 1080p. Other methods might eventually be supported. You can always fix this yourself though.
 
 # Notes and tips
 I do not recommend relying on this to always keep you alive. It does a pretty good job but do not expect it to replace for your fingers. I do not think it is fast enough for that. </br>
 
-On my system, it runs at around 55-65 Hz. Your system may vary. I am trying to make this as fast as possible. </br>
+On my system, it runs at around 60-70 Hz. This may be different based on your system hardware and configuration. Usually, the less things you enable, the faster it runs. I am trying to make this as fast as possible. </br>
 
 I recommend to run PoE at 60 FPS. Running it too high will cause the game to get choppy and it might slow down the script. From personal experience, running at 144 FPS is way more choppy than at 60 FPS. </br>
 
 Currently, pixel values only detect if something is empty. This works easily but it not the most customizable. This may be improved in the future. </br>
 
-Flasks do have a lock system but its only for itself. It does not currently detect the lock of other flasks. This means that it may use other life/mana flasks when it just used on in that check. I am working on this. </br>
+Flasks do have a lock system but its only for itself. It does not currently detect the lock of other flasks. This means that it may use other life/mana flasks almost immediately after previously using one because of delays in the life zone. Faster flask durations and slower check rates make this less noticable but it's planned to be fixed. </br>
 
 # Usage
 Clone the repo, edit the `config.yaml`, run `sudo python3 __main__.py -f <path to config file>`. Please read the configuration below. It will not work out of the box. </br>
@@ -62,18 +62,16 @@ These will use my data by default. </br>
 `main: enable:` Boolean to enable the main part of the script. You should probably keep this enabled. </br>
 `main: life:` Boolean to enable the life checking. Disable if you don't want your life flasks automated. </br>
 `main: mana:` Same thing as `main: life:`, just for mana. </br>
-`main: flasks:` Boolean to enable flask automation. You should probably also keep this enabled. Why else would you be using this script? </br>
 `main: menus:` Boolean to enable menu detection. I recommend to leave this on. It will prevent unnecessary key presses. </br>
 `main: rate:` Set the interval of each check. Setting it to 100 will check every 100 ms. Set it to 0 to disable the limit. </br>
 
 `debug: enable:` Boolean to enable debugging. This just shows some extra details while running. May impact performance. Recommended to keep this off. </br>
-`debug: life: enable:` Boolean to enable life specific debugging. </br>
-`debug: life: pixel:` Boolean to enable pixel detection debugging. Shows what pixel it expected to detect and what it actually detected. </br>
-`debug: life: rgb:` Boolean to enable RGB debugging. Shows what RGB value it expected to detect and what it actually detected. </br>
-`debug: mana:` Exact same as life. </br>
-`debug: flask:` Exact same as life. </br>
+`debug: life:` Boolean to enable life specific debugging. </br>
+`debug: mana:` Same thing as `debug: life:`, just for mana. </br>
+`debug: flask:` Same thing as `debug: life:`, just for flasks. </br>
 * Note: The flasks have x offsets! What it actually detects is offset from what it expected based on the slot its in. Don't get confused by this. </br>
-`debug: menu:` Exact same as life. </br>
+
+`debug: menu:` Same thing as `debug: life:`, just for menus. </br>
 `debug: image_save: enable:` Boolean to enable the saving of images while running. This will MASSIVELY tank performance so its HIGHLY recommend to keep this off. </br>
 `debug: image_save: location:` The place you want to save the images to. </br>
 
