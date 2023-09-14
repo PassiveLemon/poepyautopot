@@ -73,7 +73,8 @@ class Checks:
     else:
       menu3 = False
 
-    if menu1 == True and menu2 == True and menu3 == True:
+    # If 2 of the 3 pixels match, trigger
+    if (menu1 == True and menu2 == True) or (menu2 == True and menu3 == True) or (menu3 == True and menu1 == True):
       menu.inside = True
     else:
       menu.inside = False

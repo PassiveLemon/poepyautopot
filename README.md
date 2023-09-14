@@ -8,21 +8,11 @@ I am not responsible for any bans or data loss as a result of using this. This w
 
 # Dependencies
 * Linux. <b>This does not currently support Windows or MacOS.</b>
+* X11. This does not work on Wayland.
 * Sudo. This requires access to a `/dev/input` device.
-* Python3. Duh.
+* Python3.
 * Python packages: `colorama evdev pillow pyyaml (pynput for kp_calc.py)`
 * <b>Note:</b> The game must be in fullscreen at 1080p. Other methods might eventually be supported. You can always fix this yourself though.
-
-# Notes and tips
-I do not recommend relying on this to always keep you alive. It does a pretty good job but do not expect it to replace for your fingers. I do not think it is fast enough for that. </br>
-
-On my system, it runs at around 60-70 Hz. This may be different based on your system hardware and configuration. Usually, the less things you enable, the faster it runs. I am trying to make this as fast as possible. </br>
-
-I recommend to run PoE at 60 FPS. Running it too high will cause the game to get choppy and it might slow down the script. From personal experience, running at 144 FPS is way more choppy than at 60 FPS. </br>
-
-Currently, pixel values only detect if something is empty. This works easily but it not the most customizable. This may be improved in the future. </br>
-
-Flasks do have a lock system but its only for itself. It does not currently detect the lock of other flasks. This means that it may use other life/mana flasks almost immediately after previously using one because of delays in the life zone. Faster flask durations and slower check rates make this less noticable but it's planned to be fixed. </br>
 
 # Usage
 Clone the repo, edit the `config.yaml`, run `sudo python3 __main__.py -f <path to config file>`. Please read the configuration below. It will not work out of the box. </br>
@@ -64,7 +54,6 @@ These will use my data by default. </br>
 `flask#: always:` This will cause the flask to trigger every single time life/mana is needed. Flasks with this enabled should be put towards the right of your flask menu. Useful with utility/unique flasks. </br>
 
 #### Functions
-`main: enable:` Boolean to enable the main part of the script. You should probably keep this enabled. </br>
 `main: life:` Boolean to enable the life checking. Disable if you don't want your life flasks automated. </br>
 `main: mana:` Same thing as `main: life:`, just for mana. </br>
 `main: menus:` Boolean to enable menu detection. I recommend to leave this on. It will prevent unnecessary key presses. </br>
@@ -87,3 +76,13 @@ These will use my data by default. </br>
 
 Of course you can always edit the code itself to fit some of your needs. It's still very much a WIP so more is to come. There is still plenty of room for improvement and features. </br>
 
+# Notes
+I do not recommend relying on this to always keep you alive. It does a pretty good job but do not expect it to replace for your fingers. I do not think it is fast enough for that. </br>
+
+On my system, it runs at around 60-70 Hz. This may be different based on your system hardware and configuration. Usually, the less things you enable, the faster it runs. I am trying to make this as fast as possible. </br>
+
+I recommend to run PoE at 60 FPS. Running it too high will cause the game to get choppy and it might slow down the script. From personal experience, running at 144 FPS is way more choppy than at 60 FPS. </br>
+
+Currently, pixel values only detect if something is empty. This works easily but it not the most customizable. This may be improved in the future. </br>
+
+Flasks do have a lock system but its only for itself. It does not currently detect the lock of other flasks. This means that it may use other life/mana flasks almost immediately after previously using one because of delays in the life zone. Faster flask durations and slower check rates make this less noticable but it's planned to be fixed. </br>

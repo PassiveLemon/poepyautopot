@@ -259,11 +259,10 @@ flask5:
 
 # Functions -------------------
 main:
-  enable: True
   life: True
   mana: True
   menu: True
-  rate: 16.66
+  rate: 16
 
 debug:
   enable: False

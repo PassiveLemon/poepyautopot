@@ -112,7 +112,6 @@ class Config:
     self.flask5_always = self.flask5["always"]
 
     self.main = yaml_config["main"]
-    self.main_enable = self.main["enable"]
     self.main_life_enable = self.main["life"]
     self.main_mana_enable = self.main["mana"]
     self.main_menu_enable = self.main["menu"]
