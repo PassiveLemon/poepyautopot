@@ -20,7 +20,7 @@ Clone the repo, edit the `config.yaml`, run `sudo python3 __main__.py -f <path t
 `-f | --file:` The location of your config.yaml. You can use relative paths like ~ . Will default to the included one if not set. Ex: `~/.config/poepyautopot/config.yaml` </br>
 
 The colors of the outputs in the terminal have meaning:
-* For meter values like life and mana, if it is needed, it will be red. Otherwise, it's gree.
+* For meter values like life and mana, if it is needed, it will be red. Otherwise, it's green.
 * For flasks, if it's valid and not locked, it's green. If it's valid but locked, it will be yellow. If it's not valid, it will be red.
 * For menus, it will be green. </br>
 
@@ -35,11 +35,11 @@ This is the database for each flask type and the pixel to detect in the leftmost
 It is not recommended to change anything unless you know what you are doing. </br>
 
 ## User config
+#### Write any time value as a whole number. Ex: for 100 milliseconds, just write 100. It gets converted automatically. </br>
 #### Hardware
 `keyboard_event:` The `/dev/input/event#` that applies to your keyboard. </br>
 `screen_offset:` The space of screen above and to the left of the game window. This assumes the game is fullscreen at 1080p! Ex: If you have two horzontal 1080p monitors, and you run the game on the right one, set the X to 1920 and Y to 0. If you have 2 vertical 1080p monitors and you run the game on the bottom one, set the X to 0 and Y to 1080. </br>
 
-#### Write any time value as a whole number. Ex: for 100 milliseconds, just write 100. It gets converted automatically. </br>
 These will use my data by default. </br>
 `key_press: shortest:` The lowest/shortest value from your data set. </br>
 `key_press: longest:` The highest/longest value from your data set. </br>
