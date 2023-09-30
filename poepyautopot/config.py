@@ -61,11 +61,6 @@ class Config:
     self.key_press_std_dev = self.key_press["std_dev"]
     self.key_press_target = self.key_press["target"]
 
-    self.key_press_shortest_low = self.key_press_shortest - self.key_press_range
-    self.key_press_shortest_high = self.key_press_shortest + self.key_press_range
-    self.key_press_longest_low = self.key_press_longest - self.key_press_range
-    self.key_press_longest_high = self.key_press_longest + self.key_press_range
-
     self.flask1 = yaml_config["flask1"]
     self.flask1_enable = self.flask1["enable"]
     self.flask1_type = self.flask1["type"]

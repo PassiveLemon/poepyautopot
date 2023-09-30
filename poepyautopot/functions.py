@@ -19,11 +19,7 @@ class Functions:
         if min <= value <= max:
           return value
 
-    # Variate key press length with random lows and highs, std dev, and target
-    # Doing it this way gets it to look a little more human sometimes
-    random_range_low = random.randint(config.key_press_shortest_low, config.key_press_shortest_high)
-    random_range_high = random.randint(config.key_press_longest_low, config.key_press_longest_high)
-    random_key_press_sleep = gaussian(random_range_low, random_range_high, config.key_press_std_dev, config.key_press_target)
+    random_key_press_sleep = gaussian(config.key_press_shortest, config.key_press_longest, config.key_press_std_dev, config.key_press_target)
 
     ui = UInput.from_device(config.keyboard_event)
     ui.write(e.EV_KEY, flask.number, 1)
