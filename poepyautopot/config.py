@@ -1,4 +1,5 @@
 import argparse
+from ast import literal_eval as le
 import yaml
 
 parser = argparse.ArgumentParser()
@@ -12,11 +13,11 @@ class Config:
   def __init__(self):
     self.database = yaml_config["database"]
     self.life = self.database["life"]
-    self.life_pixel = self.life["pixel"]
-    self.life_empty = self.life["empty"]
+    self.life_pixel = le(self.life["pixel"])
+    self.life_empty = le(self.life["empty"])
     self.mana = self.database["mana"]
-    self.mana_pixel = self.mana["pixel"]
-    self.mana_empty = self.mana["empty"]
+    self.mana_pixel = le(self.mana["pixel"])
+    self.mana_empty = le(self.mana["empty"])
 
     self.database_flask = self.database["flask"]
     self.flask1_offset_x = self.database_flask["flask1_offset_x"]
@@ -27,26 +28,26 @@ class Config:
 
     self.menus = self.database["menus"]
     self.escape = self.menus["escape"]
-    self.escape_pixel1 = self.escape["pixel1"]
-    self.escape_color1 = self.escape["color1"]
-    self.escape_pixel2 = self.escape["pixel2"]
-    self.escape_color2 = self.escape["color2"]
-    self.escape_pixel3 = self.escape["pixel3"]
-    self.escape_color3 = self.escape["color3"]
+    self.escape_pixel1 = le(self.escape["pixel1"])
+    self.escape_color1 = le(self.escape["color1"])
+    self.escape_pixel2 = le(self.escape["pixel2"])
+    self.escape_color2 = le(self.escape["color2"])
+    self.escape_pixel3 = le(self.escape["pixel3"])
+    self.escape_color3 = le(self.escape["color3"])
     self.loading = self.menus["loading"]
-    self.loading_pixel1 = self.loading["pixel1"]
-    self.loading_color1 = self.loading["color1"]
-    self.loading_pixel2 = self.loading["pixel2"]
-    self.loading_color2 = self.loading["color2"]
-    self.loading_pixel3 = self.loading["pixel3"]
-    self.loading_color3 = self.loading["color3"]
+    self.loading_pixel1 = le(self.loading["pixel1"])
+    self.loading_color1 = le(self.loading["color1"])
+    self.loading_pixel2 = le(self.loading["pixel2"])
+    self.loading_color2 = le(self.loading["color2"])
+    self.loading_pixel3 = le(self.loading["pixel3"])
+    self.loading_color3 = le(self.loading["color3"])
     self.death = self.menus["death"]
-    self.death_pixel1 = self.death["pixel1"]
-    self.death_color1 = self.death["color1"]
-    self.death_pixel2 = self.death["pixel2"]
-    self.death_color2 = self.death["color2"]
-    self.death_pixel3 = self.death["pixel3"]
-    self.death_color3 = self.death["color3"]
+    self.death_pixel1 = le(self.death["pixel1"])
+    self.death_color1 = le(self.death["color1"])
+    self.death_pixel2 = le(self.death["pixel2"])
+    self.death_color2 = le(self.death["color2"])
+    self.death_pixel3 = le(self.death["pixel3"])
+    self.death_color3 = le(self.death["color3"])
 
     self.hardware = yaml_config["hardware"]
     self.keyboard_event = self.hardware["keyboard_event"]
@@ -64,8 +65,8 @@ class Config:
     self.flask1 = yaml_config["flask1"]
     self.flask1_enable = self.flask1["enable"]
     self.flask1_type = self.flask1["type"]
-    self.flask1_pixel = self.flask1_type["pixel"]
-    self.flask1_empty = self.flask1_type["empty"]
+    self.flask1_pixel = le(self.flask1_type["pixel"])
+    self.flask1_empty = le(self.flask1_type["empty"])
     self.flask1_duration = self.flask1_type["duration"]
     self.flask1_react = self.flask1["react"]
     self.flask1_always = self.flask1["always"]
@@ -73,8 +74,8 @@ class Config:
     self.flask2 = yaml_config["flask2"]
     self.flask2_enable = self.flask2["enable"]
     self.flask2_type = self.flask2["type"]
-    self.flask2_pixel = self.flask2_type["pixel"]
-    self.flask2_empty = self.flask2_type["empty"]
+    self.flask2_pixel = le(self.flask2_type["pixel"])
+    self.flask2_empty = le(self.flask2_type["empty"])
     self.flask2_duration = self.flask2_type["duration"]
     self.flask2_react = self.flask2["react"]
     self.flask2_always = self.flask2["always"]
@@ -82,8 +83,8 @@ class Config:
     self.flask3 = yaml_config["flask3"]
     self.flask3_enable = self.flask3["enable"]
     self.flask3_type = self.flask3["type"]
-    self.flask3_pixel = self.flask3_type["pixel"]
-    self.flask3_empty = self.flask3_type["empty"]
+    self.flask3_pixel = le(self.flask3_type["pixel"])
+    self.flask3_empty = le(self.flask3_type["empty"])
     self.flask3_duration = self.flask3_type["duration"]
     self.flask3_react = self.flask3["react"]
     self.flask3_always = self.flask3["always"]
@@ -91,8 +92,8 @@ class Config:
     self.flask4 = yaml_config["flask4"]
     self.flask4_enable = self.flask4["enable"]
     self.flask4_type = self.flask4["type"]
-    self.flask4_pixel = self.flask4_type["pixel"]
-    self.flask4_empty = self.flask4_type["empty"]
+    self.flask4_pixel = le(self.flask4_type["pixel"])
+    self.flask4_empty = le(self.flask4_type["empty"])
     self.flask4_duration = self.flask4_type["duration"]
     self.flask4_react = self.flask4["react"]
     self.flask4_always = self.flask4["always"]
@@ -100,8 +101,8 @@ class Config:
     self.flask5 = yaml_config["flask5"]
     self.flask5_enable = self.flask5["enable"]
     self.flask5_type = self.flask5["type"]
-    self.flask5_pixel = self.flask5_type["pixel"]
-    self.flask5_empty = self.flask5_type["empty"]
+    self.flask5_pixel = le(self.flask5_type["pixel"])
+    self.flask5_empty = le(self.flask5_type["empty"])
     self.flask5_duration = self.flask5_type["duration"]
     self.flask5_react = self.flask5["react"]
     self.flask5_always = self.flask5["always"]
