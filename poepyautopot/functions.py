@@ -1,5 +1,6 @@
 from colorama import Fore, Style, init as colorama_init
 from evdev import UInput, ecodes as e
+from PIL import ImageGrab
 import random
 import shutil
 import time
@@ -7,6 +8,15 @@ import time
 from config import config
 
 colorama_init()
+
+def screen_capture():
+  screen_capture = ImageGrab.grab(bbox=(config.screen_offset_x, config.screen_offset_y, 1920 + config.screen_offset_x, 1080 + config.screen_offset_y))
+  screen_load = screen_capture.load()
+
+  if config.debug_enable and config.debug_image_save_enable:
+    screen_capture.save(debug_image_save_location, "/screen.png")
+
+  return screen_load
 
 def key_press(flask):
   # Gaussian distribution for realism

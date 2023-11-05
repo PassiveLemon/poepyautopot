@@ -1,5 +1,4 @@
 from evdev import ecodes as e
-from PIL import ImageGrab
 import threading
 import time
 
@@ -26,14 +25,6 @@ meter_list = [life, mana]
 flasks_list = [flask1, flask2, flask3, flask4, flask5]
 menu_list = [escape, loading, death]
 
-def screen_capture():
-  global screen_load
-  screen_capture = ImageGrab.grab(bbox=(config.screen_offset_x, config.screen_offset_y, 1920 + config.screen_offset_x, 1080 + config.screen_offset_y))
-  screen_load = screen_capture.load()
-
-  if config.debug_enable and config.debug_image_save_enable:
-    screen_capture.save(debug_image_save_location, "/screen.png")
-
 # Main
 def main():
   i = 0
@@ -41,15 +32,13 @@ def main():
   while True:
     i += 1
     relative_start = time.time()
+    screen_load = functions.screen_capture()
     life_handoff = True
     mana_handoff = True
 
-    screen_capture()
-
     if config.main_menu_enable:
-      checks.menu_check(escape, screen_load)
-      checks.menu_check(loading, screen_load)
-      checks.menu_check(death, screen_load)
+      for menu in menu_list:
+        checks.menu_check(menu, screen_load)
 
     # Check if the user is inside one of the menu screens. If so, skip the processing.
     if not escape.inside and not loading.inside and not death.inside:
