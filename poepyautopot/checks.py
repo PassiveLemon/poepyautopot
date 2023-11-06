@@ -33,12 +33,11 @@ def flask_check(flask, screen_load):
     else:
       flask.valid = True
 
-  if config.debug_enable and config.debug_flask_enable:
-    if flask.enable:
-      print(f"{flask}-pixel[exp{flask.pixel} - act{x1_off, y1_raw}]")
-      print(f"{flask}-rgb[exp({flask.empty}) - act{r1, g1, b1}]")
+  if config.debug_enable and config.debug_flask_enable and flask.enable:
+    print(f"{flask}-pixel[exp{flask.pixel} - act{x1_off, y1_raw}]")
+    print(f"{flask}-rgb[exp({flask.empty}) - act{r1, g1, b1}]")
 
-def menu_check(menu, screen_load):
+def menu_check(menu, screen_load, menu_inside):
   x1_raw, y1_raw = menu.pixel1
   r1, g1, b1 = screen_load[x1_raw, y1_raw]
   r1_empty, g1_empty, b1_empty, = menu.color1
@@ -74,6 +73,7 @@ def menu_check(menu, screen_load):
 
   # If 2 of the 3 pixels match, trigger. This allows the check to still pass, in case the cursor or something is covering the pixel.
   if (menu1 and menu2) or (menu2 and menu3) or (menu3 and menu1):
+    menu_inside = True
     menu.inside = True
   else:
     menu.inside = False
