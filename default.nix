@@ -7,7 +7,7 @@ with python3Packages;
 
 buildPythonApplication rec {
   pname = "poepyautopot";
-  version = "1.2.1";
+  version = "1.2.2";
 
   src = ./.;
 
@@ -23,9 +23,11 @@ buildPythonApplication rec {
     pyyaml
   ];
 
-  #postInstall = ''
-  #  mkdir -p $out/lib/python3.10/site-packages/poepyautopot/
-  #  cp $src/poepyautopot/config.yaml $out/lib/python3.10/site-packages/poepyautopot/config.yaml
+  # There is currently an issue where config.yaml is not included along side the other files. This results in a failure to write the config file to the users config directory.
+  # This phase should manually add it but 'python3.XX' is not always the same so it's not super effective.
+  #installPhase = ''
+    #mkdir -p $out/lib/python3.11/site-packages/poepyautopot/
+    #cp $src/poepyautopot/config.yaml $out/lib/python3.11/site-packages/poepyautopot/config.yaml
   #'';
   
   doCheck = false;
