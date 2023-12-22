@@ -1,19 +1,20 @@
-from colorama import Fore, Style, init as colorama_init
-from evdev import UInput, ecodes as e
-from PIL import ImageGrab
 import random
 import shutil
 import time
 
-from config import config
+from colorama import Fore, Style, init as colorama_init
+from evdev import UInput, ecodes as e
+from PIL import ImageGrab
+
+from .config import configs
 
 colorama_init()
 
 def screen_capture():
-  screen_capture = ImageGrab.grab(bbox=(config.screen_offset_x, config.screen_offset_y, 1920 + config.screen_offset_x, 1080 + config.screen_offset_y))
+  screen_capture = ImageGrab.grab(bbox=(configs.screen_offset_x, configs.screen_offset_y, 1920 + configs.screen_offset_x, 1080 + configs.screen_offset_y))
   screen_load = screen_capture.load()
 
-  if config.debug_enable and config.debug_image_save_enable:
+  if configs.debug_enable and configs.debug_image_save_enable:
     screen_capture.save(debug_image_save_location, "/screen.png")
 
   return screen_load
@@ -26,9 +27,9 @@ def key_press(flask):
       if min <= value <= max:
         return value
 
-  random_key_press_sleep = gaussian(config.key_press_shortest, config.key_press_longest, config.key_press_std_dev, config.key_press_target)
+  random_key_press_sleep = gaussian(configs.key_press_shortest, configs.key_press_longest, configs.key_press_std_dev, configs.key_press_target)
 
-  ui = UInput.from_device(config.keyboard_event)
+  ui = UInput.from_device(configs.keyboard_event)
   ui.write(e.EV_KEY, flask.number, 1)
   ui.syn()
 
