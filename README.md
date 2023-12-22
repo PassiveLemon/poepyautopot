@@ -58,6 +58,7 @@ These will use my data by default. </br>
 `main: mana:` Same thing as `main: life:`, just for mana. </br>
 `main: menus:` Boolean to enable menu detection. I recommend to leave this on. It will prevent unnecessary key presses. </br>
 `main: rate:` Set the interval of each check. Setting it to 100 will check every 100 ms. Set it to 0 to disable the limit. </br>
+`main: range:` Set the range of pixels to check. This means it will check pixels up to 5 RGB values away from the designated color. This just gives some leniency. </br>
 
 `debug: enable:` Boolean to enable debugging. This just shows some extra details while running. May impact performance. Recommended to keep this off. </br>
 `debug: life:` Boolean to enable life specific debugging. </br>

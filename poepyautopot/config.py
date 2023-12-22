@@ -1,14 +1,26 @@
 import argparse
-from ast import literal_eval as le
+from ast import literal_eval as le # To evaluate the tuples correctly
+import os
 import yaml
 
+# Stuff to determine configuration file paths and create one in the users config directory if there isn't one.
+user = os.getenv('SUDO_USER')
+user_config_dir = os.getenv('XDG_CONFIG_HOME', f'/home/{user}/.config/poepyautopot')
+user_config_file = os.path.join(user_config_dir, 'config.yaml')
+source_install_path = os.path.dirname(os.path.realpath(__file__))
+source_config_file = os.path.join(source_install_path, 'config.yaml')
+
+if not os.path.exists(user_config_file):
+  with open(user_config_file, 'w') as user, open (source_config_file, "r") as source:
+    for line in source:
+      user.write(line)
+
 parser = argparse.ArgumentParser()
-parser.add_argument("-f", "--file", default="./config.yaml")
-config_file = parser.parse_args().file
+parser.add_argument("-f", "--file", default=user_config_file)
+config_file_parsed = parser.parse_args().file
 
-yaml_config = yaml.safe_load(open(config_file))
+yaml_config = yaml.safe_load(open(config_file_parsed))
 
-# I hate all of this. Atleast it's somewhat hidden in here.
 class Config:
   def __init__(self):
     self.database = yaml_config["database"]
@@ -112,6 +124,7 @@ class Config:
     self.main_mana_enable = self.main["mana"]
     self.main_menu_enable = self.main["menu"]
     self.main_rate = self.main["rate"]
+    self.main_range = self.main["range"]
 
     self.debug = yaml_config["debug"]
     self.debug_enable = self.debug["enable"]
@@ -123,4 +136,4 @@ class Config:
     self.debug_image_save_enable = self.debug_image_save["enable"]
     self.debug_image_save_location = self.debug_image_save["location"]
 
-config = Config()
+configs = Config()

@@ -263,6 +263,7 @@ main:
   mana: True
   menu: True
   rate: 16
+  range: 5
 
 debug:
   enable: False
