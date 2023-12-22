@@ -23,14 +23,10 @@ buildPythonApplication rec {
     pyyaml
   ];
 
-  postInstall = ''
-    mkdir -p $out/lib/python3.10/site-packages/poepyautopot/
-    cp $src/poepyautopot/config.yaml $out/lib/python3.10/site-packages/poepyautopot/config.yaml
-  '';
-
-  pythonImportsCheck = [
-    "poepyautopot"
-  ];
+  #postInstall = ''
+  #  mkdir -p $out/lib/python3.10/site-packages/poepyautopot/
+  #  cp $src/poepyautopot/config.yaml $out/lib/python3.10/site-packages/poepyautopot/config.yaml
+  #'';
   
   doCheck = false;
 
