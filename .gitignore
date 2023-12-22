@@ -1,3 +1,5 @@
-__pycache__/
-key_press_data.txt
+__pycache__
+*.egg-info
+result
 tests/
+key_press_data.txt
