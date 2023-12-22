@@ -18,5 +18,6 @@ setup(
     'console_scripts': [
       'poepyautopot = poepyautopot.__main__:main'
     ]
-  }
+  },
+  include_package_data=True,
 )
