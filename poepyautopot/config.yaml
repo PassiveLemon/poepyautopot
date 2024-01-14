@@ -1,5 +1,5 @@
 # Database --------------
-# Do not edit unless you know what you are doing.
+# Do not edit unless you know what you are doing
 database:
   life:
     pixel: "(101, 1005)"
@@ -189,11 +189,11 @@ database:
   menus:
     escape:
       pixel1: "(1116, 301)"
-      color1: "25, 19, 18"
+      color1: "25, 20, 16"
       pixel2: "(1085, 485)"
       color2: "78, 30, 5"
       pixel3: "(835, 467)"
-      color3: "254, 192, 118"
+      color3: "240, 181, 110"
     loading:
       pixel1: "(547, 991)"
       color1: "63, 68, 44"
@@ -220,13 +220,12 @@ hardware:
 
 # Key press data --------------
 
-# My shortest was 54 ms, longest was 141 ms.
-# My standard deviation was 21 ms.
-# For my target, I used my Q3, 110 ms.
+# My shortest was 54 ms, longest was 141 ms
+# My standard deviation was 21 ms
+# For my target, I used my Q3, 110 ms
 key_press:
   shortest: 54
   longest: 141
-  range: 3
   std_dev: 21
   target: 110
 
@@ -264,15 +263,6 @@ main:
   menu: True
   rate: 16
   range: 5
-
-debug:
-  enable: False
-  life: False
-  mana: False
-  flask: False
-  menu: False
-  image_save:
-    # This will MASSIVELY tank performance.
-    enable: False
-    location: "/tmp/poepyautopot"
+  delay: 2
+  verbose: 2
 
