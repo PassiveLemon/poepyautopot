@@ -68,10 +68,10 @@ def main():
                 mana_handoff = False
               else:
                 mana_handoff = True
-        print_parser(i, meter_list, flasks_list, None, menu_inside)
       else:
-        print_parser(i, meter_list, None, menu_list, menu_inside)
+        pass
 
+      print_parser(i, meter_list, flasks_list, menu_list, menu_inside)
       loop_rate(i, Config.main_rate, absolute_start, relative_start)
   except KeyboardInterrupt:
     exit()

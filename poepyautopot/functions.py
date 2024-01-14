@@ -46,7 +46,14 @@ def print_parser(i, meter_list, flasks_list, menu_list, menu_inside):
   def pretty():
     print_list = []
     print_length = 0
-    if flasks_list:
+    if menu_inside:
+      for menu in menu_list:
+        if menu.inside:
+          print_list.append(f"{Fore.GREEN}{menu}{Style.RESET_ALL}")
+        else:
+          print_list.append(f"{Fore.RED}{menu}{Style.RESET_ALL}")
+        print_length += len(menu.name) + 1
+    else:
       for meter in meter_list:
         if meter.enable:
           if meter.need:
@@ -66,14 +73,8 @@ def print_parser(i, meter_list, flasks_list, menu_list, menu_inside):
             print_list.append(f"{Fore.RED}{flask}{Style.RESET_ALL}")
           print_length += len(flask.name) + 1
 
-    if menu_list:
-      for menu in menu_list:
-        if menu_inside:
-          print_list.append(f"{Fore.GREEN}{menu}{Style.RESET_ALL}")
-          print_length += len(menu.name) + 1
-
     terminal_width = os.get_terminal_size().columns
-    print_list.append(f"{Fore.BLUE}{i : >{os.get_terminal_size().columns - print_length - 1}}{Style.RESET_ALL}")
+    print_list.append(f"{Fore.BLUE}{i : >{terminal_width - print_length - 1}}{Style.RESET_ALL}")
 
     for item in print_list:
       print(item, end=' ')
