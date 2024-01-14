@@ -7,20 +7,20 @@ This will constantly check your life, mana, and flasks. If your life/mana gets t
 I am not responsible for any bans or data loss as a result of using this. This was a project for me to learn Python. If you are worried about getting banned, don't use it and be a legitimate player :) </br>
 
 # Dependencies
-* Linux. <b>This is not supported on Windows or MacOS</b> though it may in the future.
-* X11. This is not supported on Wayland.
-* Sudo. This requires access to `/dev`.
-* Python packages: `colorama evdev pillow pyyaml (pynput for kp_calc.py)`
-* <b>Note:</b> The game must be in fullscreen at 1920x1080p. Other methods might eventually be supported. You can always fix this yourself though.
+- Linux. <b>This is not supported on Windows or MacOS</b> though it may in the future.
+- X11. This is not supported on Wayland.
+- Sudo. This requires access to `/dev`.
+- Python packages: `colorama evdev pillow pyyaml (pynput for kp_calc.py)`
+- <b>Note:</b> The game must be in fullscreen at 1920x1080p. Other methods might eventually be supported. You can always fix this yourself though.
 
 # Usage
 Clone the repo, edit the `config.yaml`, run `sudo python3 __main__.py -f <path to config file>`. Please read the configuration below. It will not work out of the box. </br>
 - Arguments can be found by tacking `-h` or `--help`
 
 The colors of the outputs in the terminal have meaning:
-* For meter values like life and mana, if it is needed, it will be red. Otherwise, it's green.
-* For flasks, if it's valid and not locked, it's green. If it's valid but locked, it will be yellow. If it's not valid, it will be red.
-* For menus, it will be green. </br>
+- For meter values like life and mana, if it is needed, it will be red. Otherwise, it's green.
+- For flasks, if it's valid and not locked, it's green. If it's valid but locked, it will be yellow. If it's not valid, it will be red.
+- For menus, it will be green if its detected.
 
 You can run the `kp_calc.py` script in utils to get a calculated data set for your key presses to use in the config. Just run it and follow the prompt. You can use any numbers you want, I just recommend using actual data as it represents the physical capabilities of your keyboard and should theoretically make your key presses look more human. If your keyboard key presses physically cannot be shorter than 28 ms, you shouldn't be emulating a 2 ms key press. </br>
 
@@ -64,9 +64,9 @@ This is the database for each flask type and the pixel to detect when the flask 
 | Value | Options | Default | Description |
 | :- | :- | :- | :- |
 | `enable:` | `boolean` | `False` | Enable the flask to be automated. |
-`type:` | `yaml anchor` | `*life_hallowed` | What kind of flask it is. Ex: A sacred life flask. |
-`react:` | `string` `Life` `Mana` | `Life` | This will cause the flask to react to either life or mana. This can be used to trigger utility/unique flasks.
-`always:` | `boolean` | `False` | This will cause the flask to trigger every single time life/mana is needed. Flasks with this enabled are recommended to be put towards the right of your flask menu to avoid locking other flasks. |
+| `type:` | `yaml anchor` | `-life_hallowed` | What kind of flask it is. Ex: A sacred life flask. |
+| `react:` | `string` `Life` `Mana` | `Life` | This will cause the flask to react to either life or mana. This can be used to trigger utility/unique flasks.
+| `always:` | `boolean` | `False` | This will cause the flask to trigger every single time life/mana is needed. Flasks with this enabled are recommended to be put towards the right of your flask menu to avoid locking other flasks. |
 - Tip: `react:` and `always:` can be paired to activate flasks whenever life/mana is needed regardless of priority. Useful for utility/unique flasks.
 
 #### Main
