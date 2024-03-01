@@ -18,6 +18,7 @@ try:
 except FileNotFoundError:
   if arguments.file is user_config_file:
     print(f"Configuration file does not exist at XDG_CONFIG: {user_config_file}, generating...")
+    os.makedirs(user_config_dir, exist_ok=True)
     with open(user_config_file, 'w') as user, open (source_config_file, "r") as source:
       for line in source:
         user.write(line)
@@ -33,3 +34,5 @@ except:
 # This program requires access to keyboard devices (which requires sudo) so we raise
 if os.geteuid() != 0:
   raise Exception("This program requires sudo.")
+
+print(f"Configuration file: {arguments.file}")

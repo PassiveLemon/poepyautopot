@@ -68,8 +68,6 @@ def main():
                 mana_handoff = False
               else:
                 mana_handoff = True
-      else:
-        pass
 
       print_parser(i, meter_list, flasks_list, menu_list, menu_inside)
       loop_rate(i, Config.main_rate, absolute_start, relative_start)

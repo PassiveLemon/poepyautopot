@@ -209,8 +209,7 @@ database:
       pixel3: "(805, 338)"
       color3: "194, 189, 188"
 
-
-# User config -----------------
+#### USER CONFIG -----------------
 # Hardware --------------------
 hardware:
   keyboard_event: "/dev/input/event0"

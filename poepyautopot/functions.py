@@ -74,7 +74,7 @@ def print_parser(i, meter_list, flasks_list, menu_list, menu_inside):
           print_length += len(flask.name) + 1
 
     terminal_width = os.get_terminal_size().columns
-    print_list.append(f"{Fore.BLUE}{i : >{terminal_width - print_length - 1}}{Style.RESET_ALL}")
+    print_list.append(f"{Fore.BLUE}{i:>{terminal_width - print_length - 1}}{Style.RESET_ALL}")
 
     for item in print_list:
       print(item, end=' ')

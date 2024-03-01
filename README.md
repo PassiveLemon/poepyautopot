@@ -14,7 +14,7 @@ I am not responsible for any bans or data loss as a result of using this. This w
 - <b>Note:</b> The game must be in fullscreen at 1920x1080p. Other methods might eventually be supported. You can always fix this yourself though.
 
 # Usage
-Clone the repo, edit the `config.yaml`, run `sudo python3 __main__.py -f <path to config file>`. Please read the configuration below. It will not work out of the box. </br>
+Clone the repo, run `sudo python3 __main__.py`, stop it, and edit the generated config file in your `~/.config/poepyautopot/config.yaml`. You can also supply a config file with `-f <path to config.yaml`. Please read the configuration below, you need to configure the file to enable functionality. </br>
 - Arguments can be found by tacking `-h` or `--help`
 
 The colors of the outputs in the terminal have meaning:
@@ -79,7 +79,7 @@ This is the database for each flask type and the pixel to detect when the flask 
 | `range:` | `integer` | `5` | The range of pixels to check. This means it will check pixels up to 5 RGB values away from the designated color. This just gives some margin. |
 | `delay:` | `number` | `3` | The amount of seconds to delay the start of the program by. |
 | `verbose:` | `0` `1` `2` `3` | `2` | The level of verbosity. 0 shows nothing. 1 shows the pressed keys. 2 shows 1 + every check. 3 enables 2 + verbose mode. |
-- Note: The flasks have x offsets! What it actually detects is offset from what it expected based on the slot its in. Don't get confused by this when enabling verbose mode. |
+- Note: The flasks have x offsets! What it actually detects is offset from what it expected based on the slot its in. Don't get confused by this when enabling verbose mode.
 
 Of course you can always edit the code itself to fit some of your needs. It's still very much a WIP so more is to come. There is still plenty of room for improvement and features. </br>
 
