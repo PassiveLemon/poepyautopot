@@ -1,9 +1,12 @@
 import argparse
 import os
+import pwd
 
 import yaml
 
-user = os.getenv("SUDO_USER")
+user = os.getlogin()
+user_uid = pwd.getpwnam(user).pw_uid
+user_gid = pwd.getpwnam(user).pw_gid
 user_config_dir = os.getenv("XDG_CONFIG_HOME", f"/home/{user}/.config/poepyautopot")
 user_config_file = os.path.join(user_config_dir, "config.yaml")
 source_install_path = os.path.dirname(os.path.realpath(__file__))
@@ -19,9 +22,11 @@ except FileNotFoundError:
   if arguments.file is user_config_file:
     print(f"Configuration file does not exist at XDG_CONFIG: {user_config_file}, generating...")
     os.makedirs(user_config_dir, exist_ok=True)
+    os.chown(user_config_dir, user_uid, user_gid)
     with open(user_config_file, 'w') as user, open (source_config_file, "r") as source:
       for line in source:
         user.write(line)
+      os.chown(user_config_file, user_uid, user_gid)
   else:
     raise Exception(f"Configuration file does not exist: {arguments.file}")
 except IsADirectoryError:

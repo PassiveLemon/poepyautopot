@@ -7,7 +7,7 @@ with python3Packages;
 
 buildPythonApplication rec {
   pname = "poepyautopot";
-  version = "1.3.4";
+  version = "1.3.5";
 
   src = ./.;
 
