@@ -14,8 +14,13 @@ I am not responsible for any bans or data loss as a result of using this. This w
 - <b>Note:</b> The game must be in fullscreen at 1920x1080p. Other methods might eventually be supported. You can always fix this yourself though.
 
 # Usage
-Clone the repo, run `sudo python3 __main__.py`, stop it, and edit the generated config file in your `~/.config/poepyautopot/config.yaml`. You can also supply a config file with `-f <path to config.yaml`. Please read the configuration below, you need to configure the file to enable functionality. </br>
-- Arguments can be found by tacking `-h` or `--help`
+### Nix:
+- You can get the package in my [flake repository](https://github.com/PassiveLemon/lemonake). </br>
+### Source:
+- Clone the repo
+- Run `sudo python3 __main__.py`
+- Edit the generated config file in your `~/.config/poepyautopot/config.yaml`. You can also supply a config file with `-f <path to config.yaml`. Please read the configuration below, you need to configure the file to enable functionality. </br>
+  - Arguments can be found by tacking `-h` or `--help`
 
 The colors of the outputs in the terminal have meaning:
 - For meter values like life and mana, if it is needed, it will be red. Otherwise, it's green.
