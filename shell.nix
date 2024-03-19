@@ -1,5 +1,13 @@
 { pkgs ? import <nixpkgs> { } }:
 
-pkgs.callPackage ./default.nix { }
-
-# sudo ./result/bin/poepyautopot -f /home/lemon/.config/poepyautopot/config.yaml
+pkgs.mkShellNoCC {
+  packages = with pkgs; [
+    (python311.withPackages (ps: with ps; [
+      colorama
+      evdev
+      pillow
+      pynput
+      pyyaml
+    ]))
+  ];
+}

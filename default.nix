@@ -4,7 +4,9 @@
 }:
 
 with python3Packages;
-
+let
+  shell = import ./shell.nix { inherit pkgs; };
+in
 buildPythonApplication rec {
   pname = "poepyautopot";
   version = "1.3.5";
@@ -15,13 +17,7 @@ buildPythonApplication rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [
-    colorama
-    evdev
-    pillow
-    pynput
-    pyyaml
-  ];
+  propagatedBuildInputs = shell;
   
   doCheck = false;
 
