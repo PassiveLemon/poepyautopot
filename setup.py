@@ -6,7 +6,7 @@ with open("./requirements.txt", "r") as requirements_file:
 
 setup(
   name="poepyautopot",
-  version="1.3.5",
+  version="1.3.6",
   description="A Python based Autopot script for Path of Exile",
   url="http://github.com/passivelemon/poepyautopot/",
   author="PassiveLemon",

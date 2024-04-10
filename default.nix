@@ -2,22 +2,23 @@
   lib ? pkgs.lib,
   python3Packages ? pkgs.python3Packages
 }:
-
-with python3Packages;
-let
-  shell = import ./shell.nix { inherit pkgs; };
-in
-buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "poepyautopot";
   version = "1.3.5";
 
   src = ./.;
 
-  nativeBuildInputs = [
+  nativeBuildInputs = with python3Packages; [
     setuptools
   ];
 
-  propagatedBuildInputs = shell;
+  propagatedBuildInputs = with python3Packages; [
+    colorama
+    evdev
+    pillow
+    pynput
+    pyyaml
+  ];
   
   doCheck = false;
 
