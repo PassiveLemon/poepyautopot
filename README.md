@@ -3,8 +3,8 @@ A Python based Autopot script for Path of Exile </br>
 
 This will constantly check your life, mana, and flasks. If your life/mana gets too low, it will determine which flasks it can use and will press that number through your keyboard's input driver. </br>
 
-## Disclaimer
-I am not responsible for any bans or data loss as a result of using this. This was a project for me to learn Python. If you are worried about getting banned, don't use it and be a legitimate player :) </br>
+> [!CAUTION]
+> I am not responsible for any bans or data loss as a result of using this. This was a project for me to learn Python. If you are worried about getting banned, don't use it and be a legitimate player :) </br>
 
 # Dependencies
 - Linux. <b>This is not supported on Windows or MacOS</b> though it may in the future.
