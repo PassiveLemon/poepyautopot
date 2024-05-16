@@ -4,7 +4,7 @@
 }:
 python3Packages.buildPythonApplication rec {
   pname = "poepyautopot";
-  version = "1.3.5";
+  version = "1.3.6";
 
   src = ./.;
 
@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     pynput
     pyyaml
   ];
-  
+
   doCheck = false;
 
   meta = with lib; {
@@ -29,5 +29,6 @@ python3Packages.buildPythonApplication rec {
     license = licenses.gpl3;
     maintainers = with maintainers; [ passivelemon ];
     platforms = [ "x86_64-linux" ];
+    mainProgram = "poepyautopot";
   };
 }
