@@ -7,8 +7,8 @@ import yaml
 user = os.getlogin()
 user_uid = pwd.getpwnam(user).pw_uid
 user_gid = pwd.getpwnam(user).pw_gid
-user_config_dir = os.getenv("XDG_CONFIG_HOME", f"/home/{user}/.config/poepyautopot")
-user_config_file = os.path.join(user_config_dir, "config.yaml")
+user_config_dir = os.getenv("XDG_CONFIG_HOME", f"/home/{user}/.config")
+user_config_file = os.path.join(user_config_dir, "poepyautopot/config.yaml")
 source_install_path = os.path.dirname(os.path.realpath(__file__))
 source_config_file = os.path.join(source_install_path, "config.yaml")
 
@@ -19,8 +19,9 @@ arguments = parser.parse_args()
 try:
   yaml.safe_load(open(arguments.file))
 except FileNotFoundError:
-  if arguments.file is user_config_file:
-    print(f"Configuration file does not exist at XDG_CONFIG: {user_config_file}, generating...")
+  # We only attempt to generate the config file if it's at XDG_CONFIG_HOME because we don't want to create extraneous directories in the case of a mistyped path
+  if arguments.file == user_config_file:
+    print(f"Configuration file does not exist at XDG_CONFIG_HOME: {user_config_file}, generating...")
     os.makedirs(user_config_dir, exist_ok=True)
     os.chown(user_config_dir, user_uid, user_gid)
     with open(user_config_file, 'w') as user, open (source_config_file, "r") as source:

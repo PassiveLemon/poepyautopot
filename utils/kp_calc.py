@@ -1,17 +1,17 @@
-import os
 import re
 import statistics
 import sys
 import time
+
 from pynput import keyboard 
 
 data_file = "./key_press_data.txt"
 
-def write_to_file(key, time_taken):
+def write_to_file(time_taken):
   with open(data_file, "a") as file:
     file.write(f"{time_taken:.1f} \n")
 
-def on_key_press(key):
+def on_key_press():
   global t
   t = time.time()
   return False
