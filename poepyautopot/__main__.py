@@ -41,6 +41,7 @@ def main():
         for menu in menu_list:
           if menu_check(menu, screen_load):
             menu_inside = True
+            break
 
       # Check if the user is inside one of the menu screens. If so, skip the processing
       if not menu_inside:
@@ -75,3 +76,4 @@ def main():
 
 if __name__ == "__main__":
   main()
+
