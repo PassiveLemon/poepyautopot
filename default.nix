@@ -1,18 +1,23 @@
-{ pkgs ? import <nixpkgs> { system = builtins.currentSystem; },
-  lib ? pkgs.lib,
-  python3Packages ? pkgs.python3Packages
+{ lib
+, buildPythonApplication
+, colorama
+, evdev
+, pillow
+, pynput
+, pyyaml
+, setuptools
 }:
-python3Packages.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "poepyautopot";
   version = "1.3.6";
 
   src = ./.;
 
-  nativeBuildInputs = with python3Packages; [
+  nativeBuildInputs = [
     setuptools
   ];
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     colorama
     evdev
     pillow
@@ -32,3 +37,4 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "poepyautopot";
   };
 }
+
