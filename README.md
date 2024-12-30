@@ -1,10 +1,10 @@
 # poepyautopot
-A Python based Autopot script for Path of Exile </br>
+A Python based Autopot script for Path of Exile
 
-This will constantly check your life, mana, and flasks. If your life/mana gets too low, it will determine which flasks it can use and will press that number through your keyboard's input driver. </br>
+This will constantly check your life, mana, and flasks. If your life/mana gets too low, it will determine which flasks it can use and will press that number through your keyboard's input driver.
 
 > [!CAUTION]
-> I am not responsible for any bans or data loss as a result of using this. This was a project for me to learn Python. If you are worried about getting banned, don't use it and be a legitimate player :) </br>
+> I am not responsible for any bans or data loss as a result of using this. This was a project for me to learn Python. If you are worried about getting banned, don't use it and be a legitimate player :)
 
 # Dependencies
 - Linux. <b>This is not supported on Windows or MacOS</b> though it may in the future.
@@ -15,11 +15,11 @@ This will constantly check your life, mana, and flasks. If your life/mana gets t
 
 # Usage
 ### Nix:
-- You can get the package in my [flake repository](https://github.com/PassiveLemon/lemonake). </br>
+- You can get the package in my [flake repository](https://github.com/PassiveLemon/lemonake).
 ### Source:
 - Clone the repo
 - Run `sudo python3 __main__.py`
-- Edit the generated config file in your `~/.config/poepyautopot/config.yaml`. You can also supply a config file with `-f <path to config.yaml`. Please read the configuration below, you need to configure the file to enable functionality. </br>
+- Edit the generated config file in your `~/.config/poepyautopot/config.yaml`. You can also supply a config file with `-f <path to config.yaml`. Please read the configuration below, you need to configure the file to enable functionality.
   - Arguments can be found by tacking `-h` or `--help`
 
 The colors of the outputs in the terminal have meaning:
@@ -27,16 +27,17 @@ The colors of the outputs in the terminal have meaning:
 - For flasks, if it's valid and not locked, it's green. If it's valid but locked, it will be yellow. If it's not valid, it will be red.
 - For menus, it will be green if its detected.
 
-You can run the `kp_calc.py` script in utils to get a calculated data set for your key presses to use in the config. Just run it and follow the prompt. You can use any numbers you want, I just recommend using actual data as it represents the physical capabilities of your keyboard and should theoretically make your key presses look more human. If your keyboard key presses physically cannot be shorter than 28 ms, you shouldn't be emulating a 2 ms key press. </br>
+You can run the `kp_calc.py` script in utils to get a calculated data set for your key presses to use in the config. Just run it and follow the prompt. You can use any numbers you want, I just recommend using actual data as it represents the physical capabilities of your keyboard and should theoretically make your key presses look more human. If your keyboard key presses physically cannot be shorter than 28 ms, you shouldn't be emulating a 2 ms key press.
 
 # Configuration (config.yaml)
-#### Write any time value as a whole number. Ex: for 100 milliseconds, just write 100 and for 3 seconds, just write 3. </br>
-This will not work out of the box. You will need to configure it yourself. Go into the config.yaml, past the database, and edit the appropriate values under the user config section. Details are below. </br>
-If it doesn't seem to work properly, please make sure your configurations are correctly set. As a last resort, open an issue in the GitHub repository. </br>
-## Flask database
-<b>This is still a WIP and it is not recommended to change anything unless you know what you are doing.</b> </br>
+#### Write any time value as a whole number. Ex: for 100 milliseconds, just write 100 and for 3 seconds, just write 3.
+This will not work out of the box. You will need to configure it yourself. Go into the config.yaml, past the database, and edit the appropriate values under the user config section. Details are below.
 
-This is the database for each flask type and the pixel to detect when the flask is in the left most slot. (This gets adjusted with an X offset depending on its slot) </br>
+If it doesn't seem to work properly, please make sure your configurations are correctly set. As a last resort, open an issue in the GitHub repository.
+## Flask database
+<b>This is still a WIP and it is not recommended to change anything unless you know what you are doing.</b>
+
+This is the database for each flask type and the pixel to detect when the flask is in the left most slot. (This gets adjusted with an X offset depending on its slot)
 #### Flasks
 | Value | Options | Description |
 | :- | :- | :- |
@@ -86,15 +87,15 @@ This is the database for each flask type and the pixel to detect when the flask 
 | `verbose:` | `0` `1` `2` `3` | `2` | The level of verbosity. 0 shows nothing. 1 shows the pressed keys. 2 shows 1 + every check. 3 enables 2 + verbose mode. |
 - Note: The flasks have x offsets! What it actually detects is offset from what it expected based on the slot its in. Don't get confused by this when enabling verbose mode.
 
-Of course you can always edit the code itself to fit some of your needs. It's still very much a WIP so more is to come. There is still plenty of room for improvement and features. </br>
+Of course you can always edit the code itself to fit some of your needs. It's still very much a WIP so more is to come. There is still plenty of room for improvement and features.
 
 # Notes
-I do not recommend relying on this to always keep you alive. It does a pretty good job but do not expect it to replace for your fingers. I do not think it is fast enough for that. </br>
+I do not recommend relying on this to always keep you alive. It does a pretty good job but do not expect it to replace for your fingers. I do not think it is fast enough for that.
 
-On my system, it runs at around 60-70 Hz. This may be different based on your system hardware and configuration. Usually, the less things you enable, the faster it runs. I am trying to make this as fast as possible. </br>
+On my system, it runs at around 60-70 Hz. This may be different based on your system hardware and configuration. Usually, the less things you enable, the faster it runs. I am trying to make this as fast as possible.
 
-I recommend to run PoE at 60 FPS. Running it too high will cause the game to get choppy and it might slow down the script. From personal experience, running at 144 FPS is way more choppy than at 60 FPS. </br>
+I recommend to run PoE at 60 FPS. Running it too high will cause the game to get choppy and it might slow down the script. From personal experience, running at 144 FPS is way more choppy than at 60 FPS.
 
-Currently, pixel values only detect if something is empty. This works easily but it not the most customizable. This may be improved in the future. </br>
+Currently, pixel values only detect if something is empty. This works easily but it not the most customizable. This may be improved in the future.
 
-Flasks do have a lock system but its only for itself. It does not currently detect the lock of other flasks. This means that it may use other life/mana flasks almost immediately after previously using one because of delays in the life zone. Faster flask durations and slower check rates make this less noticable but it's planned to be fixed. </br>
+Flasks do have a lock system but its only for itself. It does not currently detect the lock of other flasks. This means that it may use other life/mana flasks almost immediately after previously using one because of delays in the life zone. Faster flask durations and slower check rates make this less noticable but it's planned to be fixed.
